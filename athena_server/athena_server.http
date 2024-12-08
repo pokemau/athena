@@ -1,0 +1,6 @@
+@athena_server_HostAddress = http://localhost:5156
+
+GET {{athena_server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,2 +1,0 @@
-# athena
-Lightweight and Minimal
