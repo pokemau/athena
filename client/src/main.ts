@@ -7,3 +7,11 @@
 // window.history.pushState(null, "", newURL);
 
 // console.log(params);
+
+fetch(`https://localhost:7177/WeatherForecast`, {
+	method: "GET",
+})
+	.then((res) => res.json())
+	.then((data) => {
+		console.log(data);
+	});
