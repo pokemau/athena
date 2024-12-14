@@ -1,6 +1,6 @@
 ﻿using athena_server.Models;
 
-namespace athena_server.Repositories
+namespace athena_server.Repositories.Interfaces
 {
     public interface IArticleRepository
     {

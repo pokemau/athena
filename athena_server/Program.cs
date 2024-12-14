@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using athena_server;
 using athena_server.Services;
 using athena_server.Repositories;
+using athena_server.Repositories.Interfaces;
+using athena_server.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

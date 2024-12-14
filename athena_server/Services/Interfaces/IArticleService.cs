@@ -1,6 +1,6 @@
 ﻿using athena_server.Models.DTO;
 
-namespace athena_server.Services
+namespace athena_server.Services.Interfaces
 {
     public interface IArticleService
     {
