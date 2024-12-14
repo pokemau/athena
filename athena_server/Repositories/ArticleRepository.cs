@@ -1,4 +1,5 @@
 ﻿using athena_server.Models;
+using athena_server.Repositories.Interfaces;
 
 namespace athena_server.Repositories
 {
@@ -13,7 +14,7 @@ namespace athena_server.Repositories
 
         public Article? GetArticleById(int id)
         {
-            throw new NotImplementedException();
+            return _athenaDbContext.Articles.SingleOrDefault(x => x.id == id);
         }
 
         public List<Article> GetArticles()

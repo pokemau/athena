@@ -1,6 +1,7 @@
 ﻿using athena_server.Models;
 using athena_server.Models.DTO;
-using athena_server.Repositories;
+using athena_server.Repositories.Interfaces;
+using athena_server.Services.Interfaces;
 
 namespace athena_server.Services
 {
@@ -15,7 +16,21 @@ namespace athena_server.Services
 
         public ArticleResponseDTO? GetArticleById(int id)
         {
-            throw new NotImplementedException();
+            var article = _articleRepository.GetArticleById(id);
+
+            if (article == null)
+            {
+                return null;
+            }
+
+            return new ArticleResponseDTO()
+            {
+                id = article.id,
+                wikiID = article.wikiID,
+                articleTitle = article.articleTitle,
+                creatorID = article.creatorID,
+                articleContent = article.articleContent
+            };
         }
 
         public List<ArticleResponseDTO> GetArticles()
