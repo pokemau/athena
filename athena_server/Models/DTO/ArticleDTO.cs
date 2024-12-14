@@ -14,4 +14,14 @@
             public required String Content { get; set; }
         }
     }
+
+    public class ArticleResponseDTO
+    {
+        public required int id { get; set; }
+        public required int wikiID { get; set; }
+        public required int creatorID { get; set; }
+        public required String articleTitle { get; set; }
+        public String articleContent { get; set; }
+
+    }
 }
