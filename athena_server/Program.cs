@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<IWikiService, WikiService>();
+builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddScoped<IWikiRepository, WikiRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 
 builder.Services.AddDbContext<AthenaDbContext>(db =>
     db.UseSqlServer(builder.Configuration.GetConnectionString("AthenaDbConnectionString")), ServiceLifetime.Scoped);
