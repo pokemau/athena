@@ -29,7 +29,7 @@ namespace athena_server.Repositories
         }
         public List<Article> GetArticleByWikiID(int id)
         {
-            return _athenaDbContext.Articles.Where(x => x.wikiID == id).ToList();
+            return _athenaDbContext.Articles.Where(x => x.WikiID == id).ToList();
         }
         public async Task<bool> UpdateWiki(Wiki wiki)
         {
