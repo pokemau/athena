@@ -17,7 +17,7 @@ body {
 }
 
 
-#message-box {
+.message-box {
   position: fixed;
   top: 1rem;
   left: 50%;

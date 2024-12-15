@@ -45,10 +45,14 @@ function populateUI(wikiData: Wiki) {
 }
 
 function showNoResultsMessage() {
-	const messageBox = document.getElementById("message-box")!;
+	const messageBox = document.querySelector(".message-box") as HTMLElement;
 	const message = `<div class="message">
 		There was a problem when creating the Wiki.
 	</div>`
 
 	messageBox.innerHTML = message;
+
+    setTimeout(function() {
+        messageBox.style.display = 'none';
+    }, 3000);  // Fully hidden after 3 seconds
 }
