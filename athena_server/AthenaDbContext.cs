@@ -18,12 +18,11 @@ namespace athena_server
         public DbSet<Comment> Comments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); // Ensure this is called first
+            base.OnModelCreating(modelBuilder); 
 
-            // Optional: Customize the Identity entities' configuration
             modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey }); // Set composite key for IdentityUserLogin
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey }); 
             });
 
             modelBuilder.Entity<Wiki>().HasData(
@@ -81,27 +80,33 @@ namespace athena_server
              );
 
             modelBuilder.Entity<Article>()
-                .HasOne(a => a.wiki) // Article has one Wiki
-                .WithMany(w => w.articles) // Wiki has many Articles
-                .HasForeignKey(a => a.wikiID) // Foreign key in Article table
-                .OnDelete(DeleteBehavior.Cascade); // Optional: Cascade delete
+                .HasOne(a => a.wiki) 
+                .WithMany(w => w.articles) 
+                .HasForeignKey(a => a.wikiID) 
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<Comment>().HasData(
                 new Comment()
                 {
                     ID = 1,
                     ArticleID = 1,
-                    SenderID = 1,
+                    SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687",
                     CommentContent = "Hello comment",
                     DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0),
                 }
             );
 
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Article) // Each Comment has one Article
-                .WithMany(a => a.Comments) // Each Article has many Comments
-                .HasForeignKey(c => c.ArticleID) // Foreign key in the Comment table
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete: delete comments when the article is deleted
+                .HasOne(c => c.Sender)
+                .WithMany()
+                .HasForeignKey(c => c.SenderID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Article)
+                .WithMany(a => a.Comments)
+                .HasForeignKey(c => c.ArticleID)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 

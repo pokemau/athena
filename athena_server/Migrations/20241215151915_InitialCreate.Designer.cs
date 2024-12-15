@@ -12,7 +12,7 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241215104955_InitialCreate")]
+    [Migration("20241215151915_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -288,12 +288,15 @@ namespace athena_server.Migrations
                     b.Property<DateTime>("DateTimeSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SenderID")
-                        .HasColumnType("int");
+                    b.Property<string>("SenderID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
                     b.HasIndex("ArticleID");
+
+                    b.HasIndex("SenderID");
 
                     b.ToTable("Comments");
                 });
@@ -419,7 +422,15 @@ namespace athena_server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("athena_server.Models.ApplicationUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Article");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>

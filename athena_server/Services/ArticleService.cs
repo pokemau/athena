@@ -6,9 +6,10 @@ using athena_server.Services.Interfaces;
 
 namespace athena_server.Services
 {
-    public class ArticleService(IArticleRepository articleRepository) : IArticleService
+    public class ArticleService(IArticleRepository articleRepository, IWikiRepository wikiRepository) : IArticleService
     {
         public readonly IArticleRepository _articleRepository = articleRepository;
+        public readonly IWikiRepository _wikiRepository = wikiRepository;
 
         public async Task<ArticleResponseDTO> CreateArticle(ArticleRequestDTO.Create createArticleDTO)
         {
@@ -22,10 +23,13 @@ namespace athena_server.Services
 
             var createdArticle = await _articleRepository.CreateArticle(newArticle);
 
+            var wiki = _wikiRepository.GetWikiById(createArticleDTO.wikiID);
+
             var articleDTO = new ArticleResponseDTO()
             {
                 articleTitle = createdArticle.articleTitle,
-                articleContent = createdArticle.articleContent
+                articleContent = createdArticle.articleContent,
+                wikiName = wiki?.wikiName ?? string.Empty
             };
 
             return articleDTO;
@@ -40,10 +44,13 @@ namespace athena_server.Services
                 return null;
             }
 
+            var wiki = _wikiRepository.GetWikiById(article.wikiID);
+
             return new ArticleResponseDTO()
             {
                 id = article.id,
                 wikiID = article.wikiID,
+                wikiName = wiki?.wikiName ?? string.Empty,
                 articleTitle = article.articleTitle,
                 creatorID = article.creatorID,
                 articleContent = article.articleContent
@@ -58,11 +65,13 @@ namespace athena_server.Services
 
             foreach (Article article in articles)
             {
+                var wiki = _wikiRepository.GetWikiById(article.wikiID);
                 result.Add(new ArticleResponseDTO()
                 {
                     id = article.id,
                     creatorID = article.creatorID,
                     wikiID = article.wikiID,
+                    wikiName = wiki?.wikiName ?? string.Empty,
                     articleTitle = article.articleTitle,
                     articleContent = article.articleContent
                 });
@@ -77,10 +86,13 @@ namespace athena_server.Services
             article.articleTitle = articleUpdate.articleTitle;
             article.articleContent = articleUpdate.articleContent;
 
+            var wiki = _wikiRepository.GetWikiById(article.wikiID);
+
             await _articleRepository.UpdateArticle(article);
             return new ArticleResponseDTO()
             {
                 articleContent = article.articleContent,
+                wikiName = wiki?.wikiName ?? string.Empty,
                 articleTitle = article.articleContent,
             };
         }

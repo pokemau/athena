@@ -4,5 +4,6 @@
     {
         public required string CommentContent { get; set; }
         public required int ArticleID { get; set; }
+        public string SenderID { get; set; }
     }
 }

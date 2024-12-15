@@ -96,10 +96,8 @@
         const data = await response.json();
 
         if (response.ok) {
-          // Successfully logged in
-          window.location.href = '/dashboard'; // Redirect to a different page
+          window.location.href = '/dashboard'; 
         } else {
-          // Show error message
           document.getElementById('errorMessage').textContent =
             data.error || 'Invalid login attempt.';
         }
