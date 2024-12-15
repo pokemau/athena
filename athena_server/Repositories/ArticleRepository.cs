@@ -8,19 +8,15 @@ namespace athena_server.Repositories
     {
         private readonly AthenaDbContext _athenaDbContext = athenaDbContext;
 
-        public async Task<Article> CreateArticle(ArticleRequestDTO.Create newArticle)
+        public async Task<Article> CreateArticle(Article article)
         {
-            var article = new Article
-            {
-                wikiID = newArticle.WikiID,
-                creatorID = newArticle.CreatorID,
-                articleTitle = newArticle.Title,
-                articleContent = newArticle.Content,
-            };
-
-            _athenaDbContext.Articles.Add(article);
+            _athenaDbContext.Add(article);
             await _athenaDbContext.SaveChangesAsync();
             return article;
+        }
+        public List<Article> GetArticles()
+        {
+            return _athenaDbContext.Articles.ToList();
         }
 
         public Article? GetArticleById(int id)
@@ -28,14 +24,11 @@ namespace athena_server.Repositories
             return _athenaDbContext.Articles.SingleOrDefault(x => x.id == id);
         }
 
-        public List<Article> GetArticles()
+        public async Task<Article> UpdateArticle(Article article)
         {
-            return _athenaDbContext.Articles.ToList();
-        }
-
-        public Task<Article> UpdateArticle(Article article)
-        {
-            throw new NotImplementedException();
+            _athenaDbContext.Articles.Update(article);
+            await _athenaDbContext.SaveChangesAsync();
+            return article;
         }
     }
 }

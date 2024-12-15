@@ -1,4 +1,5 @@
-﻿using athena_server.Models;
+﻿using athena_server.Controllers;
+using athena_server.Models;
 using athena_server.Models.DTO;
 using athena_server.Repositories.Interfaces;
 using athena_server.Services.Interfaces;
@@ -9,16 +10,25 @@ namespace athena_server.Services
     {
         public readonly IArticleRepository _articleRepository = articleRepository;
 
-        public async Task<ArticleRequestDTO.Create> CreateArticle(ArticleRequestDTO.Create newArticle)
+        public async Task<ArticleResponseDTO> CreateArticle(ArticleRequestDTO.Create createArticleDTO)
         {
-            var created = await _articleRepository.CreateArticle(newArticle);
-            return new ArticleRequestDTO.Create
+            var newArticle = new Article()
             {
-                WikiID = created.wikiID,
-                Content = created.articleContent,
-                Title = created.articleTitle,
-                CreatorID = created.creatorID
+                creatorID = createArticleDTO.creatorID,
+                articleTitle = createArticleDTO.articleTitle,
+                articleContent = createArticleDTO.articleContent,
+                wikiID = createArticleDTO.wikiID
             };
+
+            var createdArticle = await _articleRepository.CreateArticle(newArticle);
+
+            var articleDTO = new ArticleResponseDTO()
+            {
+                articleTitle = createdArticle.articleTitle,
+                articleContent = createdArticle.articleContent
+            };
+
+            return articleDTO;
         }
 
         public ArticleResponseDTO? GetArticleById(int id)
@@ -42,33 +52,37 @@ namespace athena_server.Services
 
         public List<ArticleResponseDTO> GetArticles()
         {
-            //List<ArticleResponseDTO> result = new List<ArticleResponseDTO>();
-
-            //var articles = _articleRepository.GetArticles();
-
-            //foreach (Article article in articles)
-            //{
-            //    result.Add(new ArticleResponseDTO()
-            //    {
-            //        id = article.id,
-            //        creatorID = article.creatorID,
-            //        wikiID = article.wikiID,
-            //        articleTitle = article.articleTitle,
-            //        articleContent = article.articleContent,
-            //    });
-            //}
-
-            //return result;
+            List<ArticleResponseDTO> result = new List<ArticleResponseDTO>();
 
             var articles = _articleRepository.GetArticles();
-            return articles.Select(article => new ArticleResponseDTO
+
+            foreach (Article article in articles)
             {
-                id = article.id,
-                wikiID = article.wikiID,
-                creatorID = article.creatorID,
-                articleTitle = article.articleTitle,
+                result.Add(new ArticleResponseDTO()
+                {
+                    id = article.id,
+                    creatorID = article.creatorID,
+                    wikiID = article.wikiID,
+                    articleTitle = article.articleTitle,
+                    articleContent = article.articleContent
+                });
+            }
+            return result;
+        }
+
+        public async Task<ArticleResponseDTO?> UpdateArticle(int id, ArticleRequestDTO.Update articleUpdate)
+        {
+            var article = _articleRepository.GetArticleById(id);
+
+            article.articleTitle = articleUpdate.articleTitle;
+            article.articleContent = articleUpdate.articleContent;
+
+            await _articleRepository.UpdateArticle(article);
+            return new ArticleResponseDTO()
+            {
                 articleContent = article.articleContent,
-            }).ToList();
+                articleTitle = article.articleContent,
+            };
         }
     }
 }

@@ -6,8 +6,6 @@ namespace athena_server.Models
 {
     public class Article
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public required int wikiID { get; set; }
         [JsonIgnore]
