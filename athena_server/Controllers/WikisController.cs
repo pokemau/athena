@@ -17,7 +17,7 @@ namespace athena_server.Controllers
         }
 
         [HttpPost("api/wikis")]
-        public async Task<IActionResult> CreateWiki([FromBody] WikiRequestDTO.Create createWikiDto)
+        public async Task<IActionResult> CreateWiki([FromBody] WikiDTO.CreateRequest createWikiDto)
         {
             if (createWikiDto == null)
             {
@@ -52,7 +52,7 @@ namespace athena_server.Controllers
 
         [HttpPut]
         [Route("api/wikis/{id}")]
-        public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiRequestDTO.UpdateDetails wikiDTO)
+        public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiDTO.UpdateDetailsRequest wikiDTO)
         {
             var updated = _wikiService.UpdateWiki(id, wikiDTO);
             if (updated == null)

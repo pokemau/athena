@@ -31,25 +31,33 @@ namespace athena_server
                 {
                     id = 1,
                     creatorID = 1,
-                    wikiName = "Yahallo"
+                    creatorName = "Default",
+                    wikiName = "Yahallo",
+                    description = "This is the original"
                 },
                 new Wiki()
                 {
                     id = 2,
                     creatorID = 1,
-                    wikiName = "CS"
+                    creatorName = "Default",
+                    wikiName = "CS",
+                    description = "For tryhards only"
                 },
                 new Wiki()
                 {
                     id = 3,
                     creatorID = 1,
-                    wikiName = "IT"
+                    creatorName = "Default",
+                    wikiName = "IT",
+                    description = "chill"
                 },
                 new Wiki()
                 {
                     id = 4,
                     creatorID = 2,
-                    wikiName = "Polytopio"
+                    creatorName = "Default",
+                    wikiName = "Polytopio",
+                    description = "I am still learning"
                 }
             );
 

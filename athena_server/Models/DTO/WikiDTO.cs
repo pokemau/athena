@@ -1,24 +1,24 @@
 ﻿namespace athena_server.Models.DTO
 {
-    public class WikiRequestDTO
+    public class WikiDTO
     {
-        public class Create
+        public class CreateRequest
         {
             public required int creatorID { get; set; }
             public required string wikiName { get; set; }
             public string description { get; set; }
         }
-        public class UpdateDetails
+        public class UpdateDetailsRequest
         {
             public required string wikiName { get; set; }
             public string description { get; set; }
         }
-        public class UpdateArticles
+        public class UpdateArticlesRequest
         {
             public ICollection<Article> articles { get; set; }
 
         }
-        public class Display
+        public class DisplayRequest
         {
             public int id { get; set; }
             public string wikiName { get; set; }
