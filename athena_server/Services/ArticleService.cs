@@ -9,9 +9,16 @@ namespace athena_server.Services
     {
         public readonly IArticleRepository _articleRepository = articleRepository;
 
-        public Task<ArticleRequestDTO.Create> CreateArticle(ArticleRequestDTO.Create newArticle)
+        public async Task<ArticleRequestDTO.Create> CreateArticle(ArticleRequestDTO.Create newArticle)
         {
-            throw new NotImplementedException();
+            var created = await _articleRepository.CreateArticle(newArticle);
+            return new ArticleRequestDTO.Create
+            {
+                WikiID = created.wikiID,
+                Content = created.articleContent,
+                Title = created.articleTitle,
+                CreatorID = created.creatorID
+            };
         }
 
         public ArticleResponseDTO? GetArticleById(int id)
@@ -35,23 +42,33 @@ namespace athena_server.Services
 
         public List<ArticleResponseDTO> GetArticles()
         {
-            List<ArticleResponseDTO> result = new List<ArticleResponseDTO>();
+            //List<ArticleResponseDTO> result = new List<ArticleResponseDTO>();
+
+            //var articles = _articleRepository.GetArticles();
+
+            //foreach (Article article in articles)
+            //{
+            //    result.Add(new ArticleResponseDTO()
+            //    {
+            //        id = article.id,
+            //        creatorID = article.creatorID,
+            //        wikiID = article.wikiID,
+            //        articleTitle = article.articleTitle,
+            //        articleContent = article.articleContent,
+            //    });
+            //}
+
+            //return result;
 
             var articles = _articleRepository.GetArticles();
-
-            foreach (Article article in articles)
+            return articles.Select(article => new ArticleResponseDTO
             {
-                result.Add(new ArticleResponseDTO()
-                {
-                    id = article.id,
-                    creatorID = article.creatorID,
-                    wikiID = article.wikiID,
-                    articleTitle = article.articleTitle,
-                    articleContent = article.articleContent,
-                });
-            }
-
-            return result;
+                id = article.id,
+                wikiID = article.wikiID,
+                creatorID = article.creatorID,
+                articleTitle = article.articleTitle,
+                articleContent = article.articleContent,
+            }).ToList();
         }
     }
 }

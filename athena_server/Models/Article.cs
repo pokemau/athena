@@ -1,10 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace athena_server.Models
 {
     public class Article
     {
-        public required int id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
         public required int wikiID { get; set; }
         [JsonIgnore]
         public Wiki wiki { get; set; }
