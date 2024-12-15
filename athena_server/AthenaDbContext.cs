@@ -83,17 +83,25 @@ namespace athena_server
                 {
                     ID = 1,
                     ArticleID = 1,
-                    SenderID = 1,
+                    SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687",
                     CommentContent = "Hello comment",
                     DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0),
                 }
             );
 
+            // Configure relationship between Comment and ApplicationUser (SenderID)
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Article) // Each Comment has one Article
-                .WithMany(a => a.Comments) // Each Article has many Comments
-                .HasForeignKey(c => c.ArticleID) // Foreign key in the Comment table
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete: delete comments when the article is deleted
+                .HasOne(c => c.Sender)
+                .WithMany()
+                .HasForeignKey(c => c.SenderID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Configure relationship between Comment and Article (ArticleID)
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Article)
+                .WithMany(a => a.Comments)
+                .HasForeignKey(c => c.ArticleID)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 

@@ -5,7 +5,7 @@
 namespace athena_server.Migrations
 {
     /// <inheritdoc />
-    public partial class AddNewProperty : Migration
+    public partial class NewUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

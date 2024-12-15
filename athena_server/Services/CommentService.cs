@@ -16,6 +16,7 @@ namespace athena_server.Services
             {
                 CommentContent = commentDTO.CommentContent,
                 DateTimeSent = DateTime.Now,
+                SenderID = commentDTO.SenderID,
                 ArticleID = commentDTO.ArticleID,
             };
 
@@ -27,6 +28,7 @@ namespace athena_server.Services
                 ID = createdComment.ID,
                 CommentContent = createdComment.CommentContent,
                 DateTimeSent = createdComment.DateTimeSent,
+                SenderID = createdComment.SenderID,
                 ArticleID = createdComment.ArticleID,
             };
         }
@@ -45,6 +47,7 @@ namespace athena_server.Services
                 ID = comment.ID,
                 CommentContent = comment.CommentContent,
                 DateTimeSent = comment.DateTimeSent,
+                SenderID = comment.SenderID,
                 ArticleID = comment.ArticleID,
             };
         }
@@ -62,6 +65,7 @@ namespace athena_server.Services
                     ID = comment.ID,
                     CommentContent = comment.CommentContent,
                     DateTimeSent = comment.DateTimeSent,
+                    SenderID = comment.SenderID,
                     ArticleID = comment.ArticleID,
                 });
             }
