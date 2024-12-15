@@ -12,8 +12,8 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241214145712_CapturePendingChanges")]
-    partial class CapturePendingChanges
+    [Migration("20241215025442_AddNewProperty")]
+    partial class AddNewProperty
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

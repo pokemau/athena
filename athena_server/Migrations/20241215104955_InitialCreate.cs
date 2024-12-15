@@ -162,15 +162,15 @@ namespace athena_server.Migrations
                 name: "Wikis",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatorID = table.Column<int>(type: "int", nullable: false),
-                    WikiName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    creatorID = table.Column<int>(type: "int", nullable: false),
+                    wikiName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wikis", x => x.ID);
+                    table.PrimaryKey("PK_Wikis", x => x.id);
                     table.ForeignKey(
                         name: "FK_Wikis_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -182,27 +182,49 @@ namespace athena_server.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WikiID = table.Column<int>(type: "int", nullable: false),
-                    CreatorID = table.Column<int>(type: "int", nullable: false),
-                    ArticleTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ArticleContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    wikiID = table.Column<int>(type: "int", nullable: false),
+                    creatorID = table.Column<int>(type: "int", nullable: false),
+                    articleTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    articleContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Articles", x => x.ID);
+                    table.PrimaryKey("PK_Articles", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Articles_Wikis_WikiID",
-                        column: x => x.WikiID,
+                        name: "FK_Articles_Wikis_wikiID",
+                        column: x => x.wikiID,
                         principalTable: "Wikis",
-                        principalColumn: "ID",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArticleID = table.Column<int>(type: "int", nullable: false),
+                    SenderID = table.Column<int>(type: "int", nullable: false),
+                    CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateTimeSent = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Comments_Articles_ArticleID",
+                        column: x => x.ArticleID,
+                        principalTable: "Articles",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Wikis",
-                columns: new[] { "ID", "ApplicationUserId", "CreatorID", "WikiName" },
+                columns: new[] { "id", "ApplicationUserId", "creatorID", "wikiName" },
                 values: new object[,]
                 {
                     { 1, null, 1, "Yahallo" },
@@ -213,7 +235,7 @@ namespace athena_server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Articles",
-                columns: new[] { "ID", "ArticleContent", "ArticleTitle", "CreatorID", "WikiID" },
+                columns: new[] { "id", "articleContent", "articleTitle", "creatorID", "wikiID" },
                 values: new object[,]
                 {
                     { 1, "Chasers are the ralph a el", "Chasers", 1, 1 },
@@ -221,9 +243,9 @@ namespace athena_server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Articles_WikiID",
+                name: "IX_Articles_wikiID",
                 table: "Articles",
-                column: "WikiID");
+                column: "wikiID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -265,6 +287,11 @@ namespace athena_server.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_ArticleID",
+                table: "Comments",
+                column: "ArticleID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Wikis_ApplicationUserId",
                 table: "Wikis",
                 column: "ApplicationUserId");
@@ -273,9 +300,6 @@ namespace athena_server.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Articles");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -292,10 +316,16 @@ namespace athena_server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Wikis");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Articles");
+
+            migrationBuilder.DropTable(
+                name: "Wikis");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

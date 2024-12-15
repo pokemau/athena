@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using athena_server;
 
@@ -11,9 +12,11 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    partial class AthenaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241215121540_CommentArticle")]
+    partial class CommentArticle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,14 +322,6 @@ namespace athena_server.Migrations
                     b.Property<int>("creatorID")
                         .HasColumnType("int");
 
-                    b.Property<string>("creatorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("wikiName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -342,32 +337,24 @@ namespace athena_server.Migrations
                         {
                             id = 1,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "the original wiki",
                             wikiName = "Yahallo"
                         },
                         new
                         {
                             id = 2,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "for CS tryhards only",
                             wikiName = "CS"
                         },
                         new
                         {
                             id = 3,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "for chill students only",
                             wikiName = "IT"
                         },
                         new
                         {
                             id = 4,
                             creatorID = 2,
-                            creatorName = "Jorosh",
-                            description = "I am still learning",
                             wikiName = "Polytopio"
                         });
                 });

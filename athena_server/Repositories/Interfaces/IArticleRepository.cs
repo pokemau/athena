@@ -1,4 +1,5 @@
 ﻿using athena_server.Models;
+using athena_server.Models.DTO;
 
 namespace athena_server.Repositories.Interfaces
 {

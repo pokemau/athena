@@ -9,7 +9,43 @@
     <title>Article</title>
   </head>
   <body>
-    <div class="cont"></div>
+    <div class="cont">
+      <div>
+        <h4>Athéna > <span class="wiki-title"></span></h4>
+      </div>
+
+      <div class="article-details">
+        <div>
+          <h1 class="article-details__title"></h1>
+          <p class="article-details__creator"></p>
+        </div>
+
+        <div class="edit-cont">
+          <button class="edit-btn button">Edit</button>
+        </div>
+      </div>
+
+      <div class="article-content"></div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div>
+          <div>
+            <label for="">Article Title</label>
+            <input type="text" name="" id="title-input" />
+          </div>
+
+          <div>
+            <label for="">Content</label>
+            <textarea name="" id="content-input"></textarea>
+          </div>
+        </div>
+
+        <button class="save-edit-btn button">Save</button>
+      </div>
+    </div>
 
     <script type="module" src="/src/article.ts"></script>
   </body>

@@ -1,4 +1,5 @@
-﻿using athena_server.Models;
+﻿using athena_server.Controllers;
+using athena_server.Models;
 using athena_server.Models.DTO;
 using athena_server.Repositories.Interfaces;
 using athena_server.Services.Interfaces;
@@ -9,9 +10,25 @@ namespace athena_server.Services
     {
         public readonly IArticleRepository _articleRepository = articleRepository;
 
-        public Task<ArticleRequestDTO.Create> CreateArticle(ArticleRequestDTO.Create newArticle)
+        public async Task<ArticleResponseDTO> CreateArticle(ArticleRequestDTO.Create createArticleDTO)
         {
-            throw new NotImplementedException();
+            var newArticle = new Article()
+            {
+                creatorID = createArticleDTO.creatorID,
+                articleTitle = createArticleDTO.articleTitle,
+                articleContent = createArticleDTO.articleContent,
+                wikiID = createArticleDTO.wikiID
+            };
+
+            var createdArticle = await _articleRepository.CreateArticle(newArticle);
+
+            var articleDTO = new ArticleResponseDTO()
+            {
+                articleTitle = createdArticle.articleTitle,
+                articleContent = createdArticle.articleContent
+            };
+
+            return articleDTO;
         }
 
         public ArticleResponseDTO? GetArticleById(int id)
@@ -47,11 +64,25 @@ namespace athena_server.Services
                     creatorID = article.creatorID,
                     wikiID = article.wikiID,
                     articleTitle = article.articleTitle,
-                    articleContent = article.articleContent,
+                    articleContent = article.articleContent
                 });
             }
-
             return result;
+        }
+
+        public async Task<ArticleResponseDTO?> UpdateArticle(int id, ArticleRequestDTO.Update articleUpdate)
+        {
+            var article = _articleRepository.GetArticleById(id);
+
+            article.articleTitle = articleUpdate.articleTitle;
+            article.articleContent = articleUpdate.articleContent;
+
+            await _articleRepository.UpdateArticle(article);
+            return new ArticleResponseDTO()
+            {
+                articleContent = article.articleContent,
+                articleTitle = article.articleContent,
+            };
         }
     }
 }

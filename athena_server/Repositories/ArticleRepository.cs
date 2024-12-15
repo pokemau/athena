@@ -1,4 +1,5 @@
 ﻿using athena_server.Models;
+using athena_server.Models.DTO;
 using athena_server.Repositories.Interfaces;
 
 namespace athena_server.Repositories
@@ -7,9 +8,15 @@ namespace athena_server.Repositories
     {
         private readonly AthenaDbContext _athenaDbContext = athenaDbContext;
 
-        public Task<Article> CreateArticle(Article article)
+        public async Task<Article> CreateArticle(Article article)
         {
-            throw new NotImplementedException();
+            _athenaDbContext.Add(article);
+            await _athenaDbContext.SaveChangesAsync();
+            return article;
+        }
+        public List<Article> GetArticles()
+        {
+            return _athenaDbContext.Articles.ToList();
         }
 
         public Article? GetArticleById(int id)
@@ -17,14 +24,11 @@ namespace athena_server.Repositories
             return _athenaDbContext.Articles.SingleOrDefault(x => x.id == id);
         }
 
-        public List<Article> GetArticles()
+        public async Task<Article> UpdateArticle(Article article)
         {
-            return _athenaDbContext.Articles.ToList();
-        }
-
-        public Task<Article> UpdateArticle(Article article)
-        {
-            throw new NotImplementedException();
+            _athenaDbContext.Articles.Update(article);
+            await _athenaDbContext.SaveChangesAsync();
+            return article;
         }
     }
 }
