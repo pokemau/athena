@@ -16,27 +16,27 @@ namespace athena_server.Services
             _userManager = userManager;
         }
 
-        public async Task<(bool Success, string? Error)> LoginAsync(LoginDTO loginDto)
+        public async Task<(bool Success, string? Error, string? UserId)> LoginAsync(LoginDTO loginDto)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
             if (user == null)
             {
-                return (false, "Invalid login attempt.");
+                return (false, "Invalid login attempt.", null);
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, loginDto.Password, loginDto.RememberMe, lockoutOnFailure: false);
 
             if (result.Succeeded)
             {
-                return (true, null);
+                return (true, null, user.Id);
             }
             else if (result.IsLockedOut)
             {
-                return (false, "User account is locked.");
+                return (false, "User account is locked.", null);
             }
             else
             {
-                return (false, "Invalid login attempt.");
+                return (false, "Invalid login attempt.", null);
             }
         }
 
