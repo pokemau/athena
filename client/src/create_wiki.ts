@@ -13,7 +13,7 @@ form.addEventListener("submit", async (event) => {
     const newWiki = {
         wikiName: (document.getElementById("wikiName") as HTMLInputElement).value.trim(),
         creatorID: 3,
-        description: (document.getElementById("description") as HTMLTextAreaElement).value.trim()
+        description: (document.getElementById("wikiDescription") as HTMLTextAreaElement).value.trim()
     }
 
     const createdWiki = await createWiki(newWiki, WIKI_API_URL);
@@ -21,6 +21,7 @@ form.addEventListener("submit", async (event) => {
     if (createdWiki) {
         // Change location to new wiki
         console.log("Successfully created a new Wiki");
+        location.href = `http://localhost:5173/wiki.html?id=${createdWiki.id}`;
     } else {
         showNoResultsMessage();
     }
