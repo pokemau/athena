@@ -4,8 +4,9 @@ namespace athena_server.Services.Interfaces
 {
     public interface IArticleService
     {
-        public Task<ArticleRequestDTO.Create> CreateArticle(ArticleRequestDTO.Create newArticle);
+        public Task<ArticleResponseDTO> CreateArticle(ArticleRequestDTO.Create newArticle);
         public List<ArticleResponseDTO> GetArticles();
         public ArticleResponseDTO? GetArticleById(int id);
+        public Task<ArticleResponseDTO> UpdateArticle(int id, ArticleRequestDTO.Update articleUpdate);
     }
 }

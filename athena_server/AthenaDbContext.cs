@@ -84,7 +84,7 @@ namespace athena_server
                     ArticleID = 1,
                     SenderID = 1,
                     CommentContent = "Hello comment",
-                    DateTimeSent = DateTime.Now,
+                    DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0),
                 }
             );
         }

@@ -5,3 +5,7 @@ export type Article = {
 	articleTitle: string;
 	articleContent: string;
 };
+export type ArticleUpdate = {
+	articleTitle: string;
+	articleContent: string;
+};
