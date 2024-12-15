@@ -65,7 +65,7 @@ namespace athena_server
                 {
                     Id = 1,
                     WikiID = 1,
-                    CreatorID = 1,
+                    CreatorID = "6a064981-b6c5-468d-b5c3-312e537d3cf0",
                     ArticleTitle = "Chasers",
                     ArticleContent = "Chasers are the ralph a el"
                 },
@@ -73,7 +73,7 @@ namespace athena_server
                 {
                     Id = 2,
                     WikiID = 1,
-                    CreatorID = 1,
+                    CreatorID = "6a064981-b6c5-468d-b5c3-312e537d3cf0",
                     ArticleTitle = "Slummd",
                     ArticleContent = "Slammdunk"
                 }
