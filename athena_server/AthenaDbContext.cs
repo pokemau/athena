@@ -15,6 +15,7 @@ namespace athena_server
         // Register tables
         public DbSet<Wiki> Wikis{ get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // Ensure this is called first
@@ -75,6 +76,17 @@ namespace athena_server
                 .WithMany(w => w.articles) // Wiki has many Articles
                 .HasForeignKey(a => a.wikiID) // Foreign key in Article table
                 .OnDelete(DeleteBehavior.Cascade); // Optional: Cascade delete
+
+            modelBuilder.Entity<Comment>().HasData(
+                new Comment()
+                {
+                    ID = 1,
+                    ArticleID = 1,
+                    SenderID = 1,
+                    CommentContent = "Hello comment",
+                    DateTimeSent = DateTime.Now,
+                }
+            );
         }
 
     }
