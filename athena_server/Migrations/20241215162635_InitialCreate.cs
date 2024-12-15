@@ -166,6 +166,8 @@ namespace athena_server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     creatorID = table.Column<int>(type: "int", nullable: false),
                     wikiName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    creatorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -230,13 +232,13 @@ namespace athena_server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Wikis",
-                columns: new[] { "id", "ApplicationUserId", "creatorID", "wikiName" },
+                columns: new[] { "id", "ApplicationUserId", "creatorID", "creatorName", "description", "wikiName" },
                 values: new object[,]
                 {
-                    { 1, null, 1, "Yahallo" },
-                    { 2, null, 1, "CS" },
-                    { 3, null, 1, "IT" },
-                    { 4, null, 2, "Polytopio" }
+                    { 1, null, 1, "Default", "This is the original", "Yahallo" },
+                    { 2, null, 1, "Default", "For tryhards only", "CS" },
+                    { 3, null, 1, "Default", "chill", "IT" },
+                    { 4, null, 2, "Default", "I am still learning", "Polytopio" }
                 });
 
             migrationBuilder.InsertData(

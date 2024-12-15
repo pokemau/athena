@@ -83,14 +83,14 @@ namespace athena_server
                 .HasOne(a => a.wiki) 
                 .WithMany(w => w.articles) 
                 .HasForeignKey(a => a.wikiID) 
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Comment>().HasData(
                 new Comment()
                 {
                     ID = 1,
                     ArticleID = 1,
-                    SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687",
+                    SenderID = "6a064981-b6c5-468d-b5c3-312e537d3cf0",
                     CommentContent = "Hello comment",
                     DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0),
                 }

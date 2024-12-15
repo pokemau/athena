@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace athena_server.Migrations
 {
     /// <inheritdoc />
-    public partial class NewComment : Migration
+    public partial class AddNewComment : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,7 @@ namespace athena_server.Migrations
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "ID", "ArticleID", "CommentContent", "DateTimeSent", "SenderID" },
-                values: new object[] { 1, 1, "Hello comment", new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), "caa56dca-255e-49b8-8c89-d41d7ce99687" });
+                values: new object[] { 1, 1, "Hello comment", new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified), "6a064981-b6c5-468d-b5c3-312e537d3cf0" });
         }
 
         /// <inheritdoc />
