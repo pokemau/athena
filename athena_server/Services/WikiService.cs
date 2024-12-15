@@ -1,6 +1,7 @@
 ﻿using athena_server.Models;
 using athena_server.Models.DTO;
-using athena_server.Repositories;
+using athena_server.Repositories.Interfaces;
+using athena_server.Services.Interfaces;
 
 namespace athena_server.Services
 {
@@ -15,23 +16,19 @@ namespace athena_server.Services
 
         public async Task<WikiDTO> CreateWiki(CreateWikiDTO createWikiDTO)
         {
-            int id = _wikiRepository.GetWikis().Max(x => x.id) + 1;
-
             var newWiki = new Wiki()
             {
-                id = id,
                 creatorID = createWikiDTO.creatorID,
                 wikiName = createWikiDTO.wikiName,
                 articles = new List<Article>()
             };
 
-            // Call the repository method to save to the database
             var createdWiki = await _wikiRepository.CreateWiki(newWiki);
 
             var wikiDTO = new WikiDTO()
             {
                 wikiName = createdWiki.wikiName,
-                articles = createdWiki.articles     // convert to articleDTO's
+                articles = createdWiki.articles     // convert to articleDTOs later
             };
 
             return wikiDTO;
@@ -47,6 +44,7 @@ namespace athena_server.Services
             {
                 result.Add(new WikiDTO()
                 {
+                    id = wiki.id,
                     wikiName = wiki.wikiName,
                     articles = _wikiRepository.GetArticleByWikiID(wiki.id)
                 });
@@ -65,8 +63,10 @@ namespace athena_server.Services
 
             return new WikiDTO()
             {
+                id = wiki.id,
                 wikiName = wiki.wikiName,
-                articles = _wikiRepository.GetArticleByWikiID(wiki.id)
+                articles = wiki.articles
+                //articles = _wikiRepository.GetArticleByWikiID(wiki.id)
             };
         }
 

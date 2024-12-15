@@ -1,6 +1,6 @@
 ﻿using athena_server.Models;
 using athena_server.Models.DTO;
-using athena_server.Services;
+using athena_server.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +27,8 @@ namespace athena_server.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateWiki(CreateWikiDTO createWikiDto)
+        [HttpPost("api/wikis")]
+        public async Task<IActionResult> CreateWiki([FromBody] CreateWikiDTO createWikiDto)
         {
             if (createWikiDto == null)
             {
@@ -62,7 +62,7 @@ namespace athena_server.Controllers
 
 
         [HttpPut]
-        [Route("api/edit/wiki/{id}")]
+        [Route("api/wikis/{id}")]
         public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiDTO wikiDTO)
         {
             var updated = _wikiService.UpdateWiki(id, wikiDTO);
