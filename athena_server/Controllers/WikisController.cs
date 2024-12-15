@@ -50,18 +50,29 @@ namespace athena_server.Controllers
         }
 
 
-        [HttpPut]
-        [Route("api/wikis/{id}")]
-        public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiDTO.UpdateDetailsRequest wikiDTO)
+        [HttpPut("api/wikis/{id}")]
+        public async Task<IActionResult> UpdateWiki([FromRoute] int id, [FromBody] WikiDTO.UpdateDetailsRequest wikiDTO)
         {
-            var updated = _wikiService.UpdateWiki(id, wikiDTO);
-            if (updated == null)
+            var success = await _wikiService.UpdateWiki(id, wikiDTO);
+            if (success)
             {
-                return NotFound($"Wiki {id} does not exists.");
+                return Ok();
             }
+            return NotFound($"Wiki {id} does not exists.");
 
-            return Ok(updated);
+
         }
 
+
+        [HttpDelete("api/wikis/{id}")]
+        public async Task<IActionResult> DeleteWiki([FromRoute] int id)
+        {
+            var success = await _wikiService.DeleteWikiAsync(id);
+
+            if (success)
+                return NoContent(); // Return 204 No Content if successful
+
+            return NotFound($"Wiki {id} does not exists."); // Return 404 if Wiki with given ID not found
+        }
     }
 }

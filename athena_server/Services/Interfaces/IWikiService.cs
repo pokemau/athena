@@ -8,6 +8,7 @@ namespace athena_server.Services.Interfaces
         public Task<WikiDTO.DisplayRequest> CreateWiki(WikiDTO.CreateRequest createwikiDTO);
         public List<WikiDTO.DisplayRequest> GetWikis();
         public WikiDTO.DisplayRequest? GetWikiById(int id);
-        public Task<WikiDTO.DisplayRequest> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO);
+        public Task<bool> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO);
+        public Task<bool> DeleteWikiAsync(int id);
     }
 }
