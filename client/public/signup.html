@@ -90,7 +90,6 @@
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
-        // Check if passwords match
         if (password !== confirmPassword) {
           document.getElementById('errorMessage').textContent = "Passwords don't match!";
           return;
@@ -111,10 +110,8 @@
         const data = await response.json();
 
         if (response.ok) {
-          // Successfully signed up
-          window.location.href = '/login'; // Redirect to login page
+          window.location.href = '/login';
         } else {
-          // Show error message
           document.getElementById('errorMessage').textContent =
             data.error || 'Sign up failed. Please try again.';
         }

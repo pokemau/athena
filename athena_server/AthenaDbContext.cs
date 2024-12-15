@@ -18,12 +18,11 @@ namespace athena_server
         public DbSet<Comment> Comments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); // Ensure this is called first
+            base.OnModelCreating(modelBuilder); 
 
-            // Optional: Customize the Identity entities' configuration
             modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey }); // Set composite key for IdentityUserLogin
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey }); 
             });
 
             modelBuilder.Entity<Wiki>().HasData(
@@ -73,10 +72,10 @@ namespace athena_server
              );
 
             modelBuilder.Entity<Article>()
-                .HasOne(a => a.wiki) // Article has one Wiki
-                .WithMany(w => w.articles) // Wiki has many Articles
-                .HasForeignKey(a => a.wikiID) // Foreign key in Article table
-                .OnDelete(DeleteBehavior.Cascade); // Optional: Cascade delete
+                .HasOne(a => a.wiki) 
+                .WithMany(w => w.articles) 
+                .HasForeignKey(a => a.wikiID) 
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<Comment>().HasData(
                 new Comment()
@@ -89,14 +88,12 @@ namespace athena_server
                 }
             );
 
-            // Configure relationship between Comment and ApplicationUser (SenderID)
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Sender)
                 .WithMany()
                 .HasForeignKey(c => c.SenderID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure relationship between Comment and Article (ArticleID)
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Article)
                 .WithMany(a => a.Comments)

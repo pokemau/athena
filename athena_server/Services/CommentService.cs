@@ -22,7 +22,6 @@ namespace athena_server.Services
 
             var createdComment = _commentRepository.CreateComment(comment);
 
-            // Map to DTO before returning
             return new CommentResponseDTO
             {
                 ID = createdComment.ID,

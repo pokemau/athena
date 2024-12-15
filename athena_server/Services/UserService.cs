@@ -12,7 +12,6 @@ namespace athena_server.Services
             _athenaDbContext = athenaDbContext;
         }
 
-        // Method to get a list of articles by user ID
         public List<Article> GetArticlesByUserId(string userId)
         {
             throw new NotImplementedException();
@@ -22,7 +21,6 @@ namespace athena_server.Services
             //return articles;
         }
 
-        // Method to get an ApplicationUser with articles, returning a DTO
         public ApplicationUserDTO GetUserWithArticles(string userId)
         {
             throw new NotImplementedException();
