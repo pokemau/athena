@@ -304,7 +304,7 @@ namespace athena_server.Migrations
                             ArticleID = 1,
                             CommentContent = "Hello comment",
                             DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687"
+                            SenderID = "6a064981-b6c5-468d-b5c3-312e537d3cf0"
                         });
                 });
 
@@ -345,31 +345,31 @@ namespace athena_server.Migrations
                         {
                             id = 1,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "the original wiki",
+                            creatorName = "Default",
+                            description = "This is the original",
                             wikiName = "Yahallo"
                         },
                         new
                         {
                             id = 2,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "for CS tryhards only",
+                            creatorName = "Default",
+                            description = "For tryhards only",
                             wikiName = "CS"
                         },
                         new
                         {
                             id = 3,
                             creatorID = 1,
-                            creatorName = "Mau",
-                            description = "for chill students only",
+                            creatorName = "Default",
+                            description = "chill",
                             wikiName = "IT"
                         },
                         new
                         {
                             id = 4,
                             creatorID = 2,
-                            creatorName = "Jorosh",
+                            creatorName = "Default",
                             description = "I am still learning",
                             wikiName = "Polytopio"
                         });

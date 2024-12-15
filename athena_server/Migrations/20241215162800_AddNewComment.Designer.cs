@@ -12,8 +12,8 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241215152335_NewComment")]
-    partial class NewComment
+    [Migration("20241215162800_AddNewComment")]
+    partial class AddNewComment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,7 +307,7 @@ namespace athena_server.Migrations
                             ArticleID = 1,
                             CommentContent = "Hello comment",
                             DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687"
+                            SenderID = "6a064981-b6c5-468d-b5c3-312e537d3cf0"
                         });
                 });
 
@@ -325,6 +325,14 @@ namespace athena_server.Migrations
                     b.Property<int>("creatorID")
                         .HasColumnType("int");
 
+                    b.Property<string>("creatorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("wikiName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -340,24 +348,32 @@ namespace athena_server.Migrations
                         {
                             id = 1,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "This is the original",
                             wikiName = "Yahallo"
                         },
                         new
                         {
                             id = 2,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "For tryhards only",
                             wikiName = "CS"
                         },
                         new
                         {
                             id = 3,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "chill",
                             wikiName = "IT"
                         },
                         new
                         {
                             id = 4,
                             creatorID = 2,
+                            creatorName = "Default",
+                            description = "I am still learning",
                             wikiName = "Polytopio"
                         });
                 });

@@ -110,6 +110,7 @@
         const data = await response.json();
 
         if (response.ok) {
+          localStorage.setItem('userId', data.UserId);
           window.location.href = '/login';
         } else {
           document.getElementById('errorMessage').textContent =

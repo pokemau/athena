@@ -12,8 +12,8 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241215152205_NewUser")]
-    partial class NewUser
+    [Migration("20241215162635_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -315,6 +315,14 @@ namespace athena_server.Migrations
                     b.Property<int>("creatorID")
                         .HasColumnType("int");
 
+                    b.Property<string>("creatorName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("wikiName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -330,24 +338,32 @@ namespace athena_server.Migrations
                         {
                             id = 1,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "This is the original",
                             wikiName = "Yahallo"
                         },
                         new
                         {
                             id = 2,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "For tryhards only",
                             wikiName = "CS"
                         },
                         new
                         {
                             id = 3,
                             creatorID = 1,
+                            creatorName = "Default",
+                            description = "chill",
                             wikiName = "IT"
                         },
                         new
                         {
                             id = 4,
                             creatorID = 2,
+                            creatorName = "Default",
+                            description = "I am still learning",
                             wikiName = "Polytopio"
                         });
                 });

@@ -23,11 +23,11 @@ namespace athena_server.Controllers
                 return BadRequest(ModelState);
             }
 
-            var (success, error) = await _accountService.LoginAsync(loginDto);
+            var (success, error, userId) = await _accountService.LoginAsync(loginDto);
 
             if (success)
             {
-                return Ok(new { Message = "Login successful" });
+                return Ok(new { Message = "Login successful", UserId = userId });
             }
             else
             {
