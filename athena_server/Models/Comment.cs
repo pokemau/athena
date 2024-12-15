@@ -6,13 +6,14 @@ namespace athena_server.Models
 
         public int ArticleID { get; set; }
 
-        public int SenderID { get; set; }
+        public string SenderID { get; set; }
 
         public required string CommentContent { get; set; }
 
         public DateTime DateTimeSent { get; set; }
 
-        // Navigation property for the associated Article
         public Article Article { get; set; } = null!;
+
+        public ApplicationUser Sender { get; set; } = null!;
     }
 }

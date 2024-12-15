@@ -17,25 +17,26 @@ builder.Services.AddScoped<IWikiRepository, WikiRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddDbContext<AthenaDbContext>(db =>
     db.UseSqlServer(builder.Configuration.GetConnectionString("AthenaDbConnectionString")), ServiceLifetime.Scoped);
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.Password.RequireDigit = false;               // No digit required
-    options.Password.RequireLowercase = false;           // No lowercase letter required
-    options.Password.RequireUppercase = false;           // No uppercase letter required
-    options.Password.RequireNonAlphanumeric = false;     // No special characters required
-    options.Password.RequiredLength = 2;                  // You can set a minimum length if needed
+    options.Password.RequireDigit = false;               
+    options.Password.RequireLowercase = false;           
+    options.Password.RequireUppercase = false;           
+    options.Password.RequireNonAlphanumeric = false;     
+    options.Password.RequiredLength = 2;                  
 })
     .AddEntityFrameworkStores<AthenaDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Account/Login";  // Specify your login path
-    options.AccessDeniedPath = "/Account/AccessDenied";  // Specify access denied path
+    options.LoginPath = "/Account/Login";  
+    options.AccessDeniedPath = "/Account/AccessDenied";  
 });
 
 

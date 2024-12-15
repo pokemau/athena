@@ -6,5 +6,6 @@
         public required string CommentContent { get; set; }
         public DateTime DateTimeSent { get; set; }
         public required int ArticleID { get; set; }
+        public required string SenderID { get; set; }
     }
 }

@@ -207,7 +207,7 @@ namespace athena_server.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ArticleID = table.Column<int>(type: "int", nullable: false),
-                    SenderID = table.Column<int>(type: "int", nullable: false),
+                    SenderID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateTimeSent = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -220,6 +220,12 @@ namespace athena_server.Migrations
                         principalTable: "Articles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_SenderID",
+                        column: x => x.SenderID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -290,6 +296,11 @@ namespace athena_server.Migrations
                 name: "IX_Comments_ArticleID",
                 table: "Comments",
                 column: "ArticleID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_SenderID",
+                table: "Comments",
+                column: "SenderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Wikis_ApplicationUserId",

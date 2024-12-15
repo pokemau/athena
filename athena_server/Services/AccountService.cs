@@ -59,7 +59,6 @@ namespace athena_server.Services
                 return (true, null);
             }
 
-            // Combine errors into a single message
             var errors = string.Join("; ", result.Errors.Select(e => e.Description));
             return (false, errors);
         }
