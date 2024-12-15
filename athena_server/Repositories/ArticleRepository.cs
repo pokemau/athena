@@ -1,4 +1,5 @@
 ﻿using athena_server.Models;
+using athena_server.Models.DTO;
 using athena_server.Repositories.Interfaces;
 
 namespace athena_server.Repositories
@@ -7,9 +8,19 @@ namespace athena_server.Repositories
     {
         private readonly AthenaDbContext _athenaDbContext = athenaDbContext;
 
-        public Task<Article> CreateArticle(Article article)
+        public async Task<Article> CreateArticle(ArticleRequestDTO.Create newArticle)
         {
-            throw new NotImplementedException();
+            var article = new Article
+            {
+                wikiID = newArticle.WikiID,
+                creatorID = newArticle.CreatorID,
+                articleTitle = newArticle.Title,
+                articleContent = newArticle.Content,
+            };
+
+            _athenaDbContext.Articles.Add(article);
+            await _athenaDbContext.SaveChangesAsync();
+            return article;
         }
 
         public Article? GetArticleById(int id)

@@ -4,7 +4,7 @@ namespace athena_server.Models
 {
     public class Wiki
     {
-        public required int id { get; set; }
+        public int id { get; set; }
         public required int creatorID { get; set; }
         public required string wikiName { get; set; }
         [JsonIgnore]

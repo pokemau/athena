@@ -15,11 +15,16 @@ namespace athena_server.Controllers
         public IActionResult GetArticles()
         {
             var articles = _articleService.GetArticles();
+            if (articles == null)
+            {
+                return NoContent(); 
+            }
+
             return Ok(articles);
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}", Name = "GetArticleByID")]
         public IActionResult GetArticleByID(int id)
         {
             var result = _articleService.GetArticleById(id);
@@ -29,5 +34,13 @@ namespace athena_server.Controllers
             }
             return Ok(result);
         }
+
+        [HttpPost]
+        public IActionResult CreateArticle(ArticleRequestDTO.Create articleDTO)
+        {
+            var createdArticle = _articleService.CreateArticle(articleDTO);
+            return CreatedAtRoute("GetArticleByID", new { id=createdArticle.Id }, articleDTO);
+        }
+
     }
 }
