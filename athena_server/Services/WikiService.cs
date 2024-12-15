@@ -88,6 +88,7 @@ namespace athena_server.Services
             }
 
             wiki.wikiName = wikiDTO.wikiName;
+            wiki.description = wikiDTO.description;
 
             await _wikiRepository.UpdateWiki(wiki);
 

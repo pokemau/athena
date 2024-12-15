@@ -17,7 +17,7 @@ namespace athena_server.Controllers
         }
 
         [HttpPost("api/wikis")]
-        public async Task<IActionResult> CreateWiki([FromBody] CreateWikiDTO createWikiDto)
+        public async Task<IActionResult> CreateWiki([FromBody] WikiRequestDTO.Create createWikiDto)
         {
             if (createWikiDto == null)
             {
