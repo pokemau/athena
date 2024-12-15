@@ -11,6 +11,8 @@ namespace athena_server.Models
         public required string CommentContent { get; set; }
 
         public DateTime DateTimeSent { get; set; }
-        
+
+        // Navigation property for the associated Article
+        public Article Article { get; set; } = null!;
     }
 }

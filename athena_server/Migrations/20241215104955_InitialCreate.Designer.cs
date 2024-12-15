@@ -12,7 +12,7 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241213140137_InitialCreate")]
+    [Migration("20241215104955_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -225,52 +225,52 @@ namespace athena_server.Migrations
 
             modelBuilder.Entity("athena_server.Models.Article", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<string>("ArticleContent")
+                    b.Property<string>("articleContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ArticleTitle")
+                    b.Property<string>("articleTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CreatorID")
+                    b.Property<int>("creatorID")
                         .HasColumnType("int");
 
-                    b.Property<int>("WikiID")
+                    b.Property<int>("wikiID")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("id");
 
-                    b.HasIndex("WikiID");
+                    b.HasIndex("wikiID");
 
                     b.ToTable("Articles");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
-                            ArticleContent = "Chasers are the ralph a el",
-                            ArticleTitle = "Chasers",
-                            CreatorID = 1,
-                            WikiID = 1
+                            id = 1,
+                            articleContent = "Chasers are the ralph a el",
+                            articleTitle = "Chasers",
+                            creatorID = 1,
+                            wikiID = 1
                         },
                         new
                         {
-                            ID = 2,
-                            ArticleContent = "Slammdunk",
-                            ArticleTitle = "Slummd",
-                            CreatorID = 1,
-                            WikiID = 1
+                            id = 2,
+                            articleContent = "Slammdunk",
+                            articleTitle = "Slummd",
+                            creatorID = 1,
+                            wikiID = 1
                         });
                 });
 
-            modelBuilder.Entity("athena_server.Models.Wiki", b =>
+            modelBuilder.Entity("athena_server.Models.Comment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -278,17 +278,45 @@ namespace athena_server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CreatorID")
+                    b.Property<int>("ArticleID")
                         .HasColumnType("int");
 
-                    b.Property<string>("WikiName")
+                    b.Property<string>("CommentContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateTimeSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SenderID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("ArticleID");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("athena_server.Models.Wiki", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("creatorID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("wikiName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -297,27 +325,27 @@ namespace athena_server.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
-                            CreatorID = 1,
-                            WikiName = "Yahallo"
+                            id = 1,
+                            creatorID = 1,
+                            wikiName = "Yahallo"
                         },
                         new
                         {
-                            ID = 2,
-                            CreatorID = 1,
-                            WikiName = "CS"
+                            id = 2,
+                            creatorID = 1,
+                            wikiName = "CS"
                         },
                         new
                         {
-                            ID = 3,
-                            CreatorID = 1,
-                            WikiName = "IT"
+                            id = 3,
+                            creatorID = 1,
+                            wikiName = "IT"
                         },
                         new
                         {
-                            ID = 4,
-                            CreatorID = 2,
-                            WikiName = "Polytopio"
+                            id = 4,
+                            creatorID = 2,
+                            wikiName = "Polytopio"
                         });
                 });
 
@@ -374,13 +402,24 @@ namespace athena_server.Migrations
 
             modelBuilder.Entity("athena_server.Models.Article", b =>
                 {
-                    b.HasOne("athena_server.Models.Wiki", "Wiki")
-                        .WithMany("Articles")
-                        .HasForeignKey("WikiID")
+                    b.HasOne("athena_server.Models.Wiki", "wiki")
+                        .WithMany("articles")
+                        .HasForeignKey("wikiID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Wiki");
+                    b.Navigation("wiki");
+                });
+
+            modelBuilder.Entity("athena_server.Models.Comment", b =>
+                {
+                    b.HasOne("athena_server.Models.Article", "Article")
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
                 });
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
@@ -395,9 +434,14 @@ namespace athena_server.Migrations
                     b.Navigation("WikisJoined");
                 });
 
+            modelBuilder.Entity("athena_server.Models.Article", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
-                    b.Navigation("Articles");
+                    b.Navigation("articles");
                 });
 #pragma warning restore 612, 618
         }

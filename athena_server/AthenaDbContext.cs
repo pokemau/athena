@@ -25,6 +25,7 @@ namespace athena_server
             {
                 entity.HasKey(e => new { e.LoginProvider, e.ProviderKey }); // Set composite key for IdentityUserLogin
             });
+
             modelBuilder.Entity<Wiki>().HasData(
                 new Wiki()
                 {
@@ -84,9 +85,16 @@ namespace athena_server
                     ArticleID = 1,
                     SenderID = 1,
                     CommentContent = "Hello comment",
-                    DateTimeSent = DateTime.Now,
+                    DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0),
                 }
             );
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Article) // Each Comment has one Article
+                .WithMany(a => a.Comments) // Each Article has many Comments
+                .HasForeignKey(c => c.ArticleID) // Foreign key in the Comment table
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete: delete comments when the article is deleted
+
         }
 
     }

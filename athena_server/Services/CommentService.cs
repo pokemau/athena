@@ -1,4 +1,6 @@
-﻿using athena_server.Models.DTO;
+﻿using athena_server.Models;
+using athena_server.Models.DTO;
+using athena_server.Repositories;
 using athena_server.Repositories.Interfaces;
 using athena_server.Services.Interfaces;
 
@@ -8,19 +10,59 @@ namespace athena_server.Services
     {
         private readonly ICommentRepository _commentRepository = commentRepository;
 
-        public Task<CommentDTO> CreateComment()
+        public CommentResponseDTO CreateComment(CommentDTO commentDTO)
         {
-            throw new NotImplementedException();
+            var comment = new Comment
+            {
+                CommentContent = commentDTO.CommentContent,
+                DateTimeSent = DateTime.Now,
+            };
+
+            var createdComment = _commentRepository.CreateComment(comment);
+
+            // Map to DTO before returning
+            return new CommentResponseDTO
+            {
+                ID = createdComment.ID,
+                CommentContent = createdComment.CommentContent,
+                DateTimeSent = createdComment.DateTimeSent,
+            };
         }
 
-        public CommentDTO? GetCommentById(int id)
+        public CommentResponseDTO? GetCommentById(int id)
         {
-            throw new NotImplementedException();
+            var comment = _commentRepository.GetCommentById(id);
+
+            if (comment == null)
+            {
+                return null;
+            }
+
+            return new CommentResponseDTO()
+            {
+                ID = comment.ID,
+                CommentContent = comment.CommentContent,
+                DateTimeSent = comment.DateTimeSent
+            };
         }
 
-        public List<CommentDTO> GetComments()
+        public List<CommentResponseDTO> GetComments()
         {
-            throw new NotImplementedException();
+            List<CommentResponseDTO> result = new List<CommentResponseDTO>();
+
+            var comments = _commentRepository.GetComments();
+
+            foreach (Comment comment in comments)
+            {
+                result.Add(new CommentResponseDTO()
+                {
+                    ID = comment.ID,
+                    CommentContent = comment.CommentContent,
+                    DateTimeSent = comment.DateTimeSent
+                });
+            }
+
+            return result;
         }
     }
 }

@@ -267,6 +267,44 @@ namespace athena_server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("athena_server.Models.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CommentContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SenderID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArticleID");
+
+                    b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            ArticleID = 1,
+                            CommentContent = "Hello comment",
+                            DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            SenderID = 1
+                        });
+                });
+
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
                     b.Property<int>("id")
@@ -380,6 +418,17 @@ namespace athena_server.Migrations
                     b.Navigation("wiki");
                 });
 
+            modelBuilder.Entity("athena_server.Models.Comment", b =>
+                {
+                    b.HasOne("athena_server.Models.Article", "Article")
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+                });
+
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
                     b.HasOne("athena_server.Models.ApplicationUser", null)
@@ -390,6 +439,11 @@ namespace athena_server.Migrations
             modelBuilder.Entity("athena_server.Models.ApplicationUser", b =>
                 {
                     b.Navigation("WikisJoined");
+                });
+
+            modelBuilder.Entity("athena_server.Models.Article", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
