@@ -1,5 +1,6 @@
 ﻿using athena_server.Models;
 using athena_server.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace athena_server.Repositories
 {
@@ -7,19 +8,21 @@ namespace athena_server.Repositories
     {
         private readonly AthenaDbContext _athenaDbContext = athenaDbContext;
 
-        public Task<Comment> CreateComment(Comment comment)
+        public Comment CreateComment(Comment comment)
         {
-            throw new NotImplementedException();
+            _athenaDbContext.Comments.Add(comment);
+            _athenaDbContext.SaveChanges();
+            return comment;
         }
 
         public Comment? GetCommentById(int id)
         {
-            throw new NotImplementedException();
+            return _athenaDbContext.Comments.SingleOrDefault(x => x.ID == id);
         }
 
         public List<Comment> GetComments()
         {
-            throw new NotImplementedException();
+            return _athenaDbContext.Comments.ToList();
         }
 
         public Task<Comment> UpdateComment(Comment comment)

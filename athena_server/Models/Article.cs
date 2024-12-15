@@ -13,5 +13,8 @@ namespace athena_server.Models
         public required int creatorID { get; set; }
         public required String articleTitle { get; set; }
         public String articleContent { get; set; }
+
+        // Navigation property for related comments
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
