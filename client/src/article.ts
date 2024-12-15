@@ -5,7 +5,7 @@ let ARTICLE: Article;
 const articleTitle = document.querySelector(".article-details__title")!;
 const articleCreator = document.querySelector(".article-details__creator")!;
 const articleContent = document.querySelector(".article-content")!;
-const wikiTitle = document.querySelector(".wiki-title");
+const wikiTitle: HTMLAnchorElement = document.querySelector(".wiki-title")!;
 
 (async function () {
 	let params = new URLSearchParams(document.location.search);
@@ -26,6 +26,8 @@ function populateUI(articleData: Article) {
 	articleTitle.textContent = articleData.articleTitle;
 	articleCreator.textContent = `Written by: Jeker`;
 	articleContent.textContent = articleData.articleContent;
+	wikiTitle.textContent = articleData.wikiName;
+	wikiTitle.href = `./wiki.html?id=${articleData.wikiID}`;
 }
 
 function showNoResultsUI() {

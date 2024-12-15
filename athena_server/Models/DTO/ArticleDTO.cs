@@ -19,6 +19,7 @@
     {
         public int id { get; set; }
         public int wikiID { get; set; }
+        public required String? wikiName { get; set; }
         public int creatorID { get; set; }
         public required String? articleTitle { get; set; }
         public required String? articleContent { get; set; }

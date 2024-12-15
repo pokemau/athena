@@ -5,9 +5,9 @@ namespace athena_server.Services.Interfaces
 {
     public interface IWikiService
     {
-        public Task<WikiDTO> CreateWiki(CreateWikiDTO createwikiDTO);
-        public List<WikiDTO> GetWikis();
-        public WikiDTO? GetWikiById(int id);
-        public Task<WikiDTO> UpdateWiki(int id, WikiDTO wikiDTO);
+        public Task<WikiDTO.DisplayRequest> CreateWiki(WikiDTO.CreateRequest createwikiDTO);
+        public List<WikiDTO.DisplayRequest> GetWikis();
+        public WikiDTO.DisplayRequest? GetWikiById(int id);
+        public Task<WikiDTO.DisplayRequest> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO);
     }
 }

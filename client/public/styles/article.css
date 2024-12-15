@@ -97,3 +97,11 @@ textarea {
 .save-edit-btn {
   margin-top: 10px;
 }
+
+.wiki-title {
+  color: rgb(23, 102, 206);
+}
+
+.wiki-title:hover {
+  color: rgb(21, 117, 243);
+}

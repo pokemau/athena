@@ -16,19 +16,8 @@ namespace athena_server.Controllers
             _wikiService = wikiService;
         }
 
-        public IActionResult Index()
-        {
-            //var articles = _context.WikiArticles.ToList();
-            return View();
-        }
-
-        public IActionResult CreateWiki()
-        {
-            return View();
-        }
-
         [HttpPost("api/wikis")]
-        public async Task<IActionResult> CreateWiki([FromBody] CreateWikiDTO createWikiDto)
+        public async Task<IActionResult> CreateWiki([FromBody] WikiDTO.CreateRequest createWikiDto)
         {
             if (createWikiDto == null)
             {
@@ -63,7 +52,7 @@ namespace athena_server.Controllers
 
         [HttpPut]
         [Route("api/wikis/{id}")]
-        public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiDTO wikiDTO)
+        public IActionResult UpdateWiki([FromRoute] int id, [FromBody] WikiDTO.UpdateDetailsRequest wikiDTO)
         {
             var updated = _wikiService.UpdateWiki(id, wikiDTO);
             if (updated == null)

@@ -14,45 +14,52 @@ namespace athena_server.Services
             _wikiRepository = wikiRepository;
         }
 
-        public async Task<WikiDTO> CreateWiki(CreateWikiDTO createWikiDTO)
+        public async Task<WikiDTO.DisplayRequest> CreateWiki(WikiDTO.CreateRequest createWikiDTO)
         {
             var newWiki = new Wiki()
             {
                 creatorID = createWikiDTO.creatorID,
+                creatorName = "Default",
                 wikiName = createWikiDTO.wikiName,
+                description = createWikiDTO.description,
                 articles = new List<Article>()
             };
 
             var createdWiki = await _wikiRepository.CreateWiki(newWiki);
 
-            var wikiDTO = new WikiDTO()
+            var wikiDTO = new WikiDTO.DisplayRequest()
             {
+                id = createdWiki.id,
                 wikiName = createdWiki.wikiName,
+                creatorName = createdWiki.creatorName,
+                description = createdWiki.description,
                 articles = createdWiki.articles     // convert to articleDTOs later
             };
 
             return wikiDTO;
         }
 
-        public List<WikiDTO> GetWikis()
+        public List<WikiDTO.DisplayRequest> GetWikis()
         {
-            List<WikiDTO> result = new List<WikiDTO>();
+            List<WikiDTO.DisplayRequest> result = new List<WikiDTO.DisplayRequest>();
 
             var wikis = _wikiRepository.GetWikis();
 
             foreach (Wiki wiki in wikis)
             {
-                result.Add(new WikiDTO()
+                result.Add(new WikiDTO.DisplayRequest()
                 {
                     id = wiki.id,
                     wikiName = wiki.wikiName,
+                    creatorName = wiki.creatorName,
+                    description = wiki.description,
                     articles = _wikiRepository.GetArticleByWikiID(wiki.id)
                 });
             }
 
             return result;
         }
-        public WikiDTO? GetWikiById(int id)
+        public WikiDTO.DisplayRequest? GetWikiById(int id)
         {
             var wiki = _wikiRepository.GetWikiById(id);
 
@@ -61,16 +68,17 @@ namespace athena_server.Services
                 return null;
             }
 
-            return new WikiDTO()
+            return new WikiDTO.DisplayRequest()
             {
                 id = wiki.id,
                 wikiName = wiki.wikiName,
-                articles = wiki.articles
-                //articles = _wikiRepository.GetArticleByWikiID(wiki.id)
+                creatorName = wiki.creatorName,
+                description = wiki.description,
+                articles = _wikiRepository.GetArticleByWikiID(wiki.id)
             };
         }
 
-        public async Task<WikiDTO> UpdateWiki(int id, WikiDTO wikiDTO)
+        public async Task<WikiDTO.DisplayRequest> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO)
         {
             var wiki = _wikiRepository.GetWikiById(id);
 
@@ -80,14 +88,17 @@ namespace athena_server.Services
             }
 
             wiki.wikiName = wikiDTO.wikiName;
-            wiki.articles = wikiDTO.articles;
+            wiki.description = wikiDTO.description;
 
             await _wikiRepository.UpdateWiki(wiki);
 
-            return new WikiDTO()
+            return new WikiDTO.DisplayRequest()
             {
+                id = wiki.id,
                 wikiName = wiki.wikiName,
-                articles = wiki.articles
+                creatorName = wiki.creatorName,
+                description = wiki.description,
+                articles = _wikiRepository.GetArticleByWikiID(wiki.id)
             };
         }
     }

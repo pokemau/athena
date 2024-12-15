@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using athena_server;
 
@@ -11,9 +12,11 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    partial class AthenaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241215083908_AddWikiDescription")]
+    partial class AddWikiDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,15 +288,10 @@ namespace athena_server.Migrations
                     b.Property<DateTime>("DateTimeSent")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("SenderID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("SenderID")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ArticleID");
-
-                    b.HasIndex("SenderID");
 
                     b.ToTable("Comments");
 
@@ -304,7 +302,7 @@ namespace athena_server.Migrations
                             ArticleID = 1,
                             CommentContent = "Hello comment",
                             DateTimeSent = new DateTime(2024, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            SenderID = "caa56dca-255e-49b8-8c89-d41d7ce99687"
+                            SenderID = 1
                         });
                 });
 
@@ -437,25 +435,6 @@ namespace athena_server.Migrations
                     b.Navigation("wiki");
                 });
 
-            modelBuilder.Entity("athena_server.Models.Comment", b =>
-                {
-                    b.HasOne("athena_server.Models.Article", "Article")
-                        .WithMany("Comments")
-                        .HasForeignKey("ArticleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("athena_server.Models.ApplicationUser", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
                     b.HasOne("athena_server.Models.ApplicationUser", null)
@@ -466,11 +445,6 @@ namespace athena_server.Migrations
             modelBuilder.Entity("athena_server.Models.ApplicationUser", b =>
                 {
                     b.Navigation("WikisJoined");
-                });
-
-            modelBuilder.Entity("athena_server.Models.Article", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
