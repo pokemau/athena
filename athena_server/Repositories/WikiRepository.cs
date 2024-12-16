@@ -1,5 +1,6 @@
 ﻿using athena_server.Models;
 using athena_server.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace athena_server.Repositories
 {
@@ -28,14 +29,38 @@ namespace athena_server.Repositories
         }
         public List<Article> GetArticleByWikiID(int id)
         {
-            return _athenaDbContext.Articles.Where(x => x.wikiID == id).ToList();
+            return _athenaDbContext.Articles.Where(x => x.WikiID == id).ToList();
         }
-        public async Task<Wiki> UpdateWiki(Wiki wiki)
+        public async Task<bool> UpdateWiki(Wiki wiki)
         {
-            _athenaDbContext.Wikis.Update(wiki);
-            await _athenaDbContext.SaveChangesAsync();
-            return wiki;
-        }
+            var existingWiki = await _athenaDbContext.Wikis.FirstOrDefaultAsync(w => w.id == wiki.id);
 
+            if (existingWiki == null)
+            {
+                return false;
+            }
+            _athenaDbContext.Wikis.Update(wiki);
+
+            try
+            {
+                await _athenaDbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+        public async Task<bool> DeleteWikiAsync(int id)
+        {
+            var wiki = await _athenaDbContext.Wikis.FirstOrDefaultAsync(w => w.id == id);
+
+            if (wiki == null)
+                return false;
+
+            _athenaDbContext.Wikis.Remove(wiki);
+            await _athenaDbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

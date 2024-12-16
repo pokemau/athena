@@ -8,6 +8,7 @@ namespace athena_server.Repositories.Interfaces
         public List<Wiki> GetWikis();
         public Wiki? GetWikiById(int id);
         public List<Article> GetArticleByWikiID(int id);
-        public Task<Wiki> UpdateWiki(Wiki wiki);
+        public Task<bool> UpdateWiki(Wiki wiki);
+        public Task<bool> DeleteWikiAsync(int id);
     }
 }

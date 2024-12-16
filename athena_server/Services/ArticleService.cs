@@ -15,10 +15,10 @@ namespace athena_server.Services
         {
             var newArticle = new Article()
             {
-                creatorID = createArticleDTO.creatorID,
-                articleTitle = createArticleDTO.articleTitle,
-                articleContent = createArticleDTO.articleContent,
-                wikiID = createArticleDTO.wikiID
+                CreatorID = createArticleDTO.creatorID,
+                ArticleTitle = createArticleDTO.articleTitle,
+                ArticleContent = createArticleDTO.articleContent,
+                WikiID = createArticleDTO.wikiID
             };
 
             var createdArticle = await _articleRepository.CreateArticle(newArticle);
@@ -27,8 +27,8 @@ namespace athena_server.Services
 
             var articleDTO = new ArticleResponseDTO()
             {
-                articleTitle = createdArticle.articleTitle,
-                articleContent = createdArticle.articleContent,
+                articleTitle = createdArticle.ArticleTitle,
+                articleContent = createdArticle.ArticleContent,
                 wikiName = wiki?.wikiName ?? string.Empty
             };
 
@@ -44,16 +44,16 @@ namespace athena_server.Services
                 return null;
             }
 
-            var wiki = _wikiRepository.GetWikiById(article.wikiID);
+            var wiki = _wikiRepository.GetWikiById(article.WikiID);
 
             return new ArticleResponseDTO()
             {
-                id = article.id,
-                wikiID = article.wikiID,
+                id = article.Id,
+                wikiID = article.WikiID,
                 wikiName = wiki?.wikiName ?? string.Empty,
-                articleTitle = article.articleTitle,
-                creatorID = article.creatorID,
-                articleContent = article.articleContent
+                articleTitle = article.ArticleTitle,
+                creatorID = article.CreatorID,
+                articleContent = article.ArticleContent
             };
         }
 
@@ -65,15 +65,15 @@ namespace athena_server.Services
 
             foreach (Article article in articles)
             {
-                var wiki = _wikiRepository.GetWikiById(article.wikiID);
+                var wiki = _wikiRepository.GetWikiById(article.WikiID);
                 result.Add(new ArticleResponseDTO()
                 {
-                    id = article.id,
-                    creatorID = article.creatorID,
-                    wikiID = article.wikiID,
+                    id = article.Id,
+                    creatorID = article.CreatorID,
+                    wikiID = article.WikiID,
                     wikiName = wiki?.wikiName ?? string.Empty,
-                    articleTitle = article.articleTitle,
-                    articleContent = article.articleContent
+                    articleTitle = article.ArticleTitle,
+                    articleContent = article.ArticleContent
                 });
             }
             return result;
@@ -83,17 +83,17 @@ namespace athena_server.Services
         {
             var article = _articleRepository.GetArticleById(id);
 
-            article.articleTitle = articleUpdate.articleTitle;
-            article.articleContent = articleUpdate.articleContent;
+            article.ArticleTitle = articleUpdate.articleTitle;
+            article.ArticleContent = articleUpdate.articleContent;
 
-            var wiki = _wikiRepository.GetWikiById(article.wikiID);
+            var wiki = _wikiRepository.GetWikiById(article.WikiID);
 
             await _articleRepository.UpdateArticle(article);
             return new ArticleResponseDTO()
             {
-                articleContent = article.articleContent,
+                articleContent = article.ArticleContent,
                 wikiName = wiki?.wikiName ?? string.Empty,
-                articleTitle = article.articleContent,
+                articleTitle = article.ArticleContent,
             };
         }
     }

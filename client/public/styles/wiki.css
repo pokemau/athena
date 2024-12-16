@@ -137,7 +137,7 @@ textarea {
     justify-content: flex-end;
     margin-top: 20px;
 }
-.save-button, .cancel-button {
+.save-button, .cancel-button, .delete-button {
     padding: 10px 20px;
     margin-left: 10px;
     cursor: pointer;
@@ -145,6 +145,11 @@ textarea {
 }
 .save-button {
     background-color: #36c;
+    color: white;
+    border: none;
+}
+.delete-button {
+    background-color: red;
     color: white;
     border: none;
 }

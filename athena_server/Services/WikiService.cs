@@ -78,13 +78,13 @@ namespace athena_server.Services
             };
         }
 
-        public async Task<WikiDTO.DisplayRequest> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO)
+        public async Task<bool> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO)
         {
             var wiki = _wikiRepository.GetWikiById(id);
 
             if (wiki == null)
             {
-                return null;
+                return false;
             }
 
             wiki.wikiName = wikiDTO.wikiName;
@@ -92,14 +92,11 @@ namespace athena_server.Services
 
             await _wikiRepository.UpdateWiki(wiki);
 
-            return new WikiDTO.DisplayRequest()
-            {
-                id = wiki.id,
-                wikiName = wiki.wikiName,
-                creatorName = wiki.creatorName,
-                description = wiki.description,
-                articles = _wikiRepository.GetArticleByWikiID(wiki.id)
-            };
+            return true;
+        }
+        public async Task<bool> DeleteWikiAsync(int id)
+        {
+            return await _wikiRepository.DeleteWikiAsync(id);
         }
     }
 }

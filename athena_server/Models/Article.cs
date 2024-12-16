@@ -6,13 +6,13 @@ namespace athena_server.Models
 {
     public class Article
     {
-        public int id { get; set; }
-        public required int wikiID { get; set; }
+        public int Id { get; set; }
+        public required int WikiID { get; set; }
         [JsonIgnore]
-        public Wiki wiki { get; set; }
-        public required int creatorID { get; set; }
-        public required String articleTitle { get; set; }
-        public String articleContent { get; set; }
+        public Wiki? Wiki { get; set; }
+        public required string CreatorID { get; set; }
+        public required string ArticleTitle { get; set; }
+        public string ArticleContent { get; set; }
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }

@@ -5,13 +5,13 @@
         public class Create
         {
             public required int wikiID { get; set; }
-            public required int creatorID { get; set; }
-            public required String articleTitle { get; set; }
-            public required String articleContent { get; set; }
+            public required string creatorID { get; set; }
+            public required string articleTitle { get; set; }
+            public required string articleContent { get; set; }
         }
         public class Update {
-            public required String articleTitle { get; set; }
-            public required String articleContent { get; set; }
+            public required string articleTitle { get; set; }
+            public required string articleContent { get; set; }
         }
     }
 
@@ -19,9 +19,9 @@
     {
         public int id { get; set; }
         public int wikiID { get; set; }
-        public required String? wikiName { get; set; }
-        public int creatorID { get; set; }
-        public required String? articleTitle { get; set; }
-        public required String? articleContent { get; set; }
+        public required string? wikiName { get; set; }
+        public string creatorID { get; set; }
+        public required string? articleTitle { get; set; }
+        public required string? articleContent { get; set; }
     }
 }

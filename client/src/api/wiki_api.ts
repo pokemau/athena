@@ -53,11 +53,11 @@ async function editWiki(ID: string, newWiki: object, API_URL: string) {
 		});
 
 		if (response.ok){
-			const data = await response.json();
+			const data = response; //not json cuz this returns boolean
 			console.log("Wiki successfully edited");
 			return data;
 		}else{
-			const error = await response.json();
+			const error = response;
 			console.log("Wiki edit error: " + error);
 			return null;
 		}
@@ -66,4 +66,28 @@ async function editWiki(ID: string, newWiki: object, API_URL: string) {
 	}
 }
 
-export { WIKI_API_URL, createWiki, getWikiByID, editWiki };
+async function deleteWiki(ID: string, API_URL: string) {
+    try {
+        const response = await fetch(`${API_URL}/${ID}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.ok) {
+            const data = response;  //not json cuz this returns boolean
+            console.log("Wiki successfully deleted");
+            return data; // You can return any useful information from the response
+        } else {
+            const error = response;
+            console.log("Wiki delete error: " + error);
+            return null; // Return null if there is an error
+        }
+    } catch (error) {
+        console.error(`deleteWiki ||||| ${error}`);
+        return null; // Return null if there's a fetch error
+    }
+}
+
+export { WIKI_API_URL, createWiki, getWikiByID, editWiki, deleteWiki };

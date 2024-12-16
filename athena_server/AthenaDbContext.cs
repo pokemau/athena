@@ -63,26 +63,26 @@ namespace athena_server
             modelBuilder.Entity<Article>().HasData(
                 new Article()
                 {
-                    id = 1,
-                    wikiID = 1,
-                    creatorID = 1,
-                    articleTitle = "Chasers",
-                    articleContent = "Chasers are the ralph a el"
+                    Id = 1,
+                    WikiID = 1,
+                    CreatorID = "6a064981-b6c5-468d-b5c3-312e537d3cf0",
+                    ArticleTitle = "Chasers",
+                    ArticleContent = "Chasers are the ralph a el"
                 },
                 new Article()
                 {
-                    id = 2,
-                    wikiID = 1,
-                    creatorID = 1,
-                    articleTitle = "Slummd",
-                    articleContent = "Slammdunk"
+                    Id = 2,
+                    WikiID = 1,
+                    CreatorID = "6a064981-b6c5-468d-b5c3-312e537d3cf0",
+                    ArticleTitle = "Slummd",
+                    ArticleContent = "Slammdunk"
                 }
              );
 
             modelBuilder.Entity<Article>()
-                .HasOne(a => a.wiki) 
+                .HasOne(a => a.Wiki) 
                 .WithMany(w => w.articles) 
-                .HasForeignKey(a => a.wikiID) 
+                .HasForeignKey(a => a.WikiID) 
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Comment>().HasData(

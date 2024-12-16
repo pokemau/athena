@@ -21,7 +21,7 @@ namespace athena_server.Repositories
 
         public Article? GetArticleById(int id)
         {
-            return _athenaDbContext.Articles.SingleOrDefault(x => x.id == id);
+            return _athenaDbContext.Articles.SingleOrDefault(x => x.Id == id);
         }
 
         public async Task<Article> UpdateArticle(Article article)
