@@ -57,7 +57,7 @@ if (saveBtn) {
 
 		await updateArticle(ARTICLE.id.toString(), ARTICLE_API_URL, articleUpdate);
 		articleTitle.textContent = titleInput.value;
-		articleContent.textContent = titleInput.value;
+		articleContent.textContent = contentInput.value;
 		modal.style.display = "none";
 	});
 }

@@ -12,7 +12,7 @@ export type ArticleUpdate = {
 };
 export type Wiki = {
 	id: number;
-	creatorID: number;
+	creatorID: string;
 	wikiName: string;
 	creatorName: string;
 	description: string;
