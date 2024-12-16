@@ -12,8 +12,8 @@ using athena_server;
 namespace athena_server.Migrations
 {
     [DbContext(typeof(AthenaDbContext))]
-    [Migration("20241216013029_af")]
-    partial class af
+    [Migration("20241216023105_Testing")]
+    partial class Testing
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace athena_server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Testing : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -184,19 +182,19 @@ namespace athena_server.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    wikiID = table.Column<int>(type: "int", nullable: false),
-                    creatorID = table.Column<int>(type: "int", nullable: false),
-                    articleTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    articleContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    WikiID = table.Column<int>(type: "int", nullable: false),
+                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArticleTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArticleContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Articles", x => x.id);
+                    table.PrimaryKey("PK_Articles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Articles_Wikis_wikiID",
-                        column: x => x.wikiID,
+                        name: "FK_Articles_Wikis_WikiID",
+                        column: x => x.WikiID,
                         principalTable: "Wikis",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -220,7 +218,7 @@ namespace athena_server.Migrations
                         name: "FK_Comments_Articles_ArticleID",
                         column: x => x.ArticleID,
                         principalTable: "Articles",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_AspNetUsers_SenderID",
@@ -230,30 +228,10 @@ namespace athena_server.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Wikis",
-                columns: new[] { "id", "ApplicationUserId", "creatorID", "creatorName", "description", "wikiName" },
-                values: new object[,]
-                {
-                    { 1, null, 1, "Default", "This is the original", "Yahallo" },
-                    { 2, null, 1, "Default", "For tryhards only", "CS" },
-                    { 3, null, 1, "Default", "chill", "IT" },
-                    { 4, null, 2, "Default", "I am still learning", "Polytopio" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Articles",
-                columns: new[] { "id", "articleContent", "articleTitle", "creatorID", "wikiID" },
-                values: new object[,]
-                {
-                    { 1, "Chasers are the ralph a el", "Chasers", 1, 1 },
-                    { 2, "Slammdunk", "Slummd", 1, 1 }
-                });
-
             migrationBuilder.CreateIndex(
-                name: "IX_Articles_wikiID",
+                name: "IX_Articles_WikiID",
                 table: "Articles",
-                column: "wikiID");
+                column: "WikiID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
