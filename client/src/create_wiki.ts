@@ -12,7 +12,7 @@ form.addEventListener("submit", async (event) => {
 
     const newWiki = {
         wikiName: (document.getElementById("wikiName") as HTMLInputElement).value.trim(),
-        creatorID: 3,
+        creatorID: localStorage.getItem('userId'),
         description: (document.getElementById("wikiDescription") as HTMLTextAreaElement).value.trim()
     }
 

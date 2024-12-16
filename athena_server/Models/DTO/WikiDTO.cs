@@ -4,7 +4,7 @@
     {
         public class CreateRequest
         {
-            public required int creatorID { get; set; }
+            public required string creatorID { get; set; }
             public required string wikiName { get; set; }
             public string description { get; set; }
         }
