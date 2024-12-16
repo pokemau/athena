@@ -28,35 +28,35 @@ namespace athena_server
             //modelBuilder.Entity<Wiki>().HasData(
             //    new Wiki()
             //    {
-            //        id = 1,
-            //        creatorID = 1,
-            //        creatorName = "Default",
-            //        wikiName = "Yahallo",
-            //        description = "This is the original"
+            //        Id = 1,
+            //        CreatorID = "1",
+            //        CreatorName = "Default",
+            //        WikiName = "Yahallo",
+            //        Description = "This is the original"
             //    },
             //    new Wiki()
             //    {
-            //        id = 2,
-            //        creatorID = 1,
-            //        creatorName = "Default",
-            //        wikiName = "CS",
-            //        description = "For tryhards only"
+            //        Id = 2,
+            //        CreatorID = "1",
+            //        CreatorName = "Default",
+            //        WikiName = "CS",
+            //        Description = "For tryhards only"
             //    },
             //    new Wiki()
             //    {
-            //        id = 3,
-            //        creatorID = 1,
-            //        creatorName = "Default",
-            //        wikiName = "IT",
-            //        description = "chill"
+            //        Id = 3,
+            //        CreatorID = "1",
+            //        CreatorName = "Default",
+            //        WikiName = "IT",
+            //        Description = "chill"
             //    },
             //    new Wiki()
             //    {
-            //        id = 4,
-            //        creatorID = 2,
-            //        creatorName = "Default",
-            //        wikiName = "Polytopio",
-            //        description = "I am still learning"
+            //        Id = 4,
+            //        CreatorID = "1",
+            //        CreatorName = "Default",
+            //        WikiName = "Polytopio",
+            //        Description = "I am still learning"
             //    }
             //);
 
@@ -81,7 +81,7 @@ namespace athena_server
 
             modelBuilder.Entity<Article>()
                 .HasOne(a => a.Wiki) 
-                .WithMany(w => w.articles) 
+                .WithMany(w => w.Articles) 
                 .HasForeignKey(a => a.WikiID) 
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -96,17 +96,17 @@ namespace athena_server
             //    }
             //);
 
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Sender)
-                .WithMany()
-                .HasForeignKey(c => c.SenderID)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Comment>()
+            //    .HasOne(c => c.Sender)
+            //    .WithMany()
+            //    .HasForeignKey(c => c.SenderID)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Article)
-                .WithMany(a => a.Comments)
-                .HasForeignKey(c => c.ArticleID)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Comment>()
+            //    .HasOne(c => c.Article)
+            //    .WithMany(a => a.Comments)
+            //    .HasForeignKey(c => c.ArticleID)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
         }
 

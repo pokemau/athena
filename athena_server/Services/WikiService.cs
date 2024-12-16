@@ -16,24 +16,36 @@ namespace athena_server.Services
 
         public async Task<WikiDTO.DisplayRequest> CreateWiki(WikiDTO.CreateRequest createWikiDTO)
         {
+            var user = await _wikiRepository.GetUserByID(createWikiDTO.creatorID);
+
+            if (user == null)
+            {
+                return null;
+            }
+
             var newWiki = new Wiki()
             {
-                creatorID = createWikiDTO.creatorID,
-                creatorName = "Default",
-                wikiName = createWikiDTO.wikiName,
-                description = createWikiDTO.description,
-                articles = new List<Article>()
+                CreatorID = createWikiDTO.creatorID,
+                CreatorName = user.UserName,
+                WikiName = createWikiDTO.wikiName,
+                Description = createWikiDTO.description,
+                Articles = new List<Article>()
             };
 
             var createdWiki = await _wikiRepository.CreateWiki(newWiki);
 
             var wikiDTO = new WikiDTO.DisplayRequest()
             {
-                id = createdWiki.id,
-                wikiName = createdWiki.wikiName,
-                creatorName = createdWiki.creatorName,
-                description = createdWiki.description,
-                articles = createdWiki.articles     // convert to articleDTOs later
+                id = createdWiki.Id,
+                wikiName = createdWiki.WikiName,
+                creatorName = createdWiki.CreatorName,
+                description = createdWiki.Description,
+                articles = createdWiki.Articles.Select(article => new ArticleRequestDTO.Display
+                {
+                    creatorID = article.CreatorID,
+                    articleTitle = article.ArticleTitle,
+                    articleContent = article.ArticleContent
+                }).ToList()
             };
 
             return wikiDTO;
@@ -49,11 +61,16 @@ namespace athena_server.Services
             {
                 result.Add(new WikiDTO.DisplayRequest()
                 {
-                    id = wiki.id,
-                    wikiName = wiki.wikiName,
-                    creatorName = wiki.creatorName,
-                    description = wiki.description,
-                    articles = _wikiRepository.GetArticleByWikiID(wiki.id)
+                    id = wiki.Id,
+                    wikiName = wiki.WikiName,
+                    creatorName = wiki.CreatorName,
+                    description = wiki.Description,
+                    articles = wiki.Articles.Select(article => new ArticleRequestDTO.Display
+                    {
+                        creatorID = article.CreatorID,
+                        articleTitle = article.ArticleTitle,
+                        articleContent = article.ArticleContent
+                    }).ToList()
                 });
             }
 
@@ -70,11 +87,16 @@ namespace athena_server.Services
 
             return new WikiDTO.DisplayRequest()
             {
-                id = wiki.id,
-                wikiName = wiki.wikiName,
-                creatorName = wiki.creatorName,
-                description = wiki.description,
-                articles = _wikiRepository.GetArticleByWikiID(wiki.id)
+                id = wiki.Id,
+                wikiName = wiki.WikiName,
+                creatorName = wiki.CreatorName,
+                description = wiki.Description,
+                articles = wiki.Articles.Select(article => new ArticleRequestDTO.Display
+                {
+                    creatorID = article.CreatorID,
+                    articleTitle = article.ArticleTitle,
+                    articleContent = article.ArticleContent
+                }).ToList()
             };
         }
 
@@ -87,8 +109,8 @@ namespace athena_server.Services
                 return false;
             }
 
-            wiki.wikiName = wikiDTO.wikiName;
-            wiki.description = wikiDTO.description;
+            wiki.WikiName = wikiDTO.wikiName;
+            wiki.Description = wikiDTO.description;
 
             await _wikiRepository.UpdateWiki(wiki);
 
@@ -97,6 +119,16 @@ namespace athena_server.Services
         public async Task<bool> DeleteWikiAsync(int id)
         {
             return await _wikiRepository.DeleteWikiAsync(id);
+        }
+
+        public async Task<ApplicationUserDTO?> GetUserByIdAsync(string userId)
+        {
+            // Fetch the user using EF Core's LINQ
+            var user = await _wikiRepository.GetUserByID(userId);
+
+            if (user == null) return null;
+
+            return user;
         }
     }
 }

@@ -13,6 +13,12 @@
             public required string ArticleTitle { get; set; }
             public required string ArticleContent { get; set; }
         }
+        public class Display
+        {
+            public required string CreatorID { get; set; }
+            public required string ArticleTitle { get; set; }
+            public required string ArticleContent { get; set; }
+        }
     }
 
     public class ArticleResponseDTO

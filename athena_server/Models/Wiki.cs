@@ -3,11 +3,11 @@ namespace athena_server.Models
 {
     public class Wiki
     {
-        public int id { get; set; }
-        public required string creatorID { get; set; }
-        public required string wikiName { get; set; }
-        public string creatorName { get; set; }
-        public string description { get; set; }
-        public ICollection<Article> articles { get; set; }
+        public int Id { get; set; }
+        public required string CreatorID { get; set; }
+        public required string WikiName { get; set; }
+        public string CreatorName { get; set; }
+        public string Description { get; set; }
+        public ICollection<Article> Articles { get; set; }
     }
 }
