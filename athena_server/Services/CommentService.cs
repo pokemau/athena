@@ -71,5 +71,26 @@ namespace athena_server.Services
 
             return result;
         }
+
+        public List<CommentResponseDTO> GetCommentsByArticleId(int articleId)
+        {
+            List<CommentResponseDTO> result = new List<CommentResponseDTO>();
+
+            var comments = _commentRepository.GetCommentsByArticleId(articleId);
+
+            foreach (Comment comment in comments)
+            {
+                result.Add(new CommentResponseDTO()
+                {
+                    ID = comment.ID,
+                    CommentContent = comment.CommentContent,
+                    DateTimeSent = comment.DateTimeSent,
+                    SenderID = comment.SenderID,
+                    ArticleID = comment.ArticleID,
+                });
+            }
+
+            return result;
+        }
     }
 }

@@ -78,7 +78,7 @@
             comments.forEach(comment => {
               const commentDiv = document.createElement('div');
               commentDiv.classList.add('comment');
-              
+
               fetch(`https://localhost:7177/api/users/${comment.senderID}`)
                 .then(res => res.json())
                 .then(user => {
