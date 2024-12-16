@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Athéna | Create Article</title>
+    <link rel="stylesheet" href="styles/create_wiki.css" />
+  </head>
+  <body>
+    <h1>Athéna</h1>
+
+    <h2>Create an Article</h2>
+
+    <div class="message-box"></div>
+
+    <form id="createWikiForm">
+      <label for="wikiName">Article Title:</label>
+      <input type="text" id="wikiName" name="wikiName" required />
+      <br />
+
+      <label for="wikiDescription">Content:</label>
+      <textarea id="wikiDescription" name="wikiDescription" required></textarea>
+      <br />
+
+      <button type="submit">Create article</button>
+    </form>
+
+    <div class="cont"></div>
+
+    <script type="module" src="../src/create_article.ts"></script>
+  </body>
+</html>

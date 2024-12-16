@@ -6,6 +6,12 @@ export type Article = {
 	articleTitle: string;
 	articleContent: string;
 };
+export type ArticleCreate = {
+	wikiID: number;
+	creatorID: string;
+	articleTitle: string;
+	articleContent: string;
+};
 export type ArticleUpdate = {
 	articleTitle: string;
 	articleContent: string;
@@ -17,4 +23,4 @@ export type Wiki = {
 	creatorName: string;
 	description: string;
 	articles: Article[];
-}
+};

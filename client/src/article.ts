@@ -1,4 +1,4 @@
-import { ARTICLE_API_URL, getArticleByID, updateArticle } from "./api/article_api";
+import { ARTICLE_API_URL, deleteArticle, getArticleByID, updateArticle } from "./api/article_api";
 import { Article, ArticleUpdate } from "./types";
 
 let ARTICLE: Article;
@@ -24,7 +24,7 @@ const wikiTitle: HTMLAnchorElement = document.querySelector(".wiki-title")!;
 
 function populateUI(articleData: Article) {
 	articleTitle.textContent = articleData.articleTitle;
-	articleCreator.textContent = `Written by: Jeker`;
+	articleCreator.textContent = `Written by: pokemau`;
 	articleContent.textContent = articleData.articleContent;
 	wikiTitle.textContent = articleData.wikiName;
 	wikiTitle.href = `./wiki.html?id=${articleData.wikiID}`;
@@ -41,7 +41,8 @@ function showNoResultsUI() {
 const modal = document.getElementById("myModal")!;
 const span = document.getElementsByClassName("close")[0]!;
 const editBtn = document.querySelector(".edit-btn")!;
-const saveBtn = document.querySelector(".save-edit-btn");
+const deleteBtn = document.querySelector(".delete-btn")!;
+const saveBtn = document.querySelector(".save-edit-btn")!;
 
 const titleInput: HTMLInputElement = document.querySelector("#title-input")!;
 const contentInput: HTMLInputElement = document.querySelector("#content-input")!;
@@ -61,6 +62,15 @@ if (saveBtn) {
 		modal.style.display = "none";
 	});
 }
+
+deleteBtn.addEventListener("click", async (e) => {
+	e.preventDefault();
+
+	let params = new URLSearchParams(document.location.search);
+	const articleID = Number(params.get("id"));
+
+	await deleteArticle(articleID);
+});
 
 editBtn.addEventListener("click", (e) => {
 	e.preventDefault();

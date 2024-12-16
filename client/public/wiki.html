@@ -1,65 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Athéna | Wiki Homepage</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/wiki.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/wiki.css" />
+  </head>
+  <body>
     <a href="../"><h1>Athéna</h1></a>
 
     <div class="message-box"></div>
 
     <section class="wiki-info">
-        <div class="wiki-header">
-            <h2 class="wiki-name"></h2>
-            <div class="wiki-buttons">
-                <p class="edit-wiki">Edit</p>
-                <p class="delete-wiki">Delete</p>
-            </div>
+      <div class="wiki-header">
+        <h2 class="wiki-name"></h2>
+        <div class="wiki-buttons">
+          <p class="edit-wiki">Edit</p>
+          <p class="delete-wiki">Delete</p>
         </div>
-        <p class="creator-name"></p>
-        <p class="description"></p>
+      </div>
+      <p class="creator-name"></p>
+      <p class="description"></p>
     </section>
-    
+
     <h2>Articles</h2>
-    <ul class="article-list">
-    </ul>
+    <a href="create_article.html?id=2">Create an article</a>
+    <ul class="article-list"></ul>
 
     <!-- Edit Wiki Modal -->
     <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Edit Wiki</h2>
-            <form id="edit-wiki-form">
-                <label for="new-wiki-name">Wiki Name:</label>
-                <input type="text" id="new-wiki-name" name="new-wiki-name" placeholder="Example Wiki Name" required>
-                
-                <label for="new-wiki-description">Wiki Description:</label>
-                <textarea id="new-wiki-description" name="new-wiki-description" required>This is an example wiki description. It provides a brief overview of what the wiki is about and its main topics. This wiki covers various subjects related to its theme and aims to be a comprehensive resource for enthusiasts and researchers alike.</textarea>
-                
-                <div class="button-group">
-                    <button type="button" class="cancel-button">Cancel</button>
-                    <button type="submit" class="save-button">Save Changes</button>
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Wiki</h2>
+        <form id="edit-wiki-form">
+          <label for="new-wiki-name">Wiki Name:</label>
+          <input
+            type="text"
+            id="new-wiki-name"
+            name="new-wiki-name"
+            placeholder="Example Wiki Name"
+            required
+          />
+
+          <label for="new-wiki-description">Wiki Description:</label>
+          <textarea id="new-wiki-description" name="new-wiki-description" required>
+This is an example wiki description. It provides a brief overview of what the wiki is about and its main topics. This wiki covers various subjects related to its theme and aims to be a comprehensive resource for enthusiasts and researchers alike.</textarea
+          >
+
+          <div class="button-group">
+            <button type="button" class="cancel-button">Cancel</button>
+            <button type="submit" class="save-button">Save Changes</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <div id="delete-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Are you sure you want to delete this wiki?</p>
-            <div class="button-group">
-                <button class="cancel-button">Cancel</button>
-                <button class="delete-button">Delete</button>
-            </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Are you sure you want to delete this wiki?</p>
+        <div class="button-group">
+          <button class="cancel-button">Cancel</button>
+          <button class="delete-button">Delete</button>
         </div>
+      </div>
     </div>
 
-
     <script type="module" src="../src/wiki.ts"></script>
-</body>
+  </body>
 </html>
