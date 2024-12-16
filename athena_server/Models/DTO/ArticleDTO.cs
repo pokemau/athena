@@ -13,6 +13,13 @@
             public required string ArticleTitle { get; set; }
             public required string ArticleContent { get; set; }
         }
+
+        public class WikiPreview
+        {
+            public required int Id { get; set; }
+            public required string ArticleTitle { get; set; }
+            public required string ArticleContent { get; set; }
+        }
     }
 
     public class ArticleResponseDTO

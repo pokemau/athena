@@ -29,7 +29,7 @@ namespace athena_server.Services
             {
                 ArticleTitle = createdArticle.ArticleTitle,
                 ArticleContent = createdArticle.ArticleContent,
-                WikiName = wiki?.wikiName ?? string.Empty
+                WikiName = wiki?.WikiName ?? string.Empty
             };
 
             return articleDTO;
@@ -55,7 +55,7 @@ namespace athena_server.Services
             {
                 Id = article.Id,
                 WikiID = article.WikiID,
-                WikiName = wiki?.wikiName ?? string.Empty,
+                WikiName = wiki?.WikiName ?? string.Empty,
                 ArticleTitle = article.ArticleTitle,
                 CreatorID = article.CreatorID,
                 ArticleContent = article.ArticleContent
@@ -76,7 +76,7 @@ namespace athena_server.Services
                     Id = article.Id,
                     CreatorID = article.CreatorID,
                     WikiID = article.WikiID,
-                    WikiName = wiki?.wikiName ?? string.Empty,
+                    WikiName = wiki?.WikiName ?? string.Empty,
                     ArticleTitle = article.ArticleTitle,
                     ArticleContent = article.ArticleContent
                 });
@@ -97,7 +97,7 @@ namespace athena_server.Services
             return new ArticleResponseDTO()
             {
                 ArticleContent = article.ArticleContent,
-                WikiName = wiki?.wikiName ?? string.Empty,
+                WikiName = wiki?.WikiName ?? string.Empty,
                 ArticleTitle = article.ArticleContent,
             };
         }

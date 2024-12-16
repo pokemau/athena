@@ -1,5 +1,6 @@
 ﻿using athena_server.Models;
 using athena_server.Models.DTO;
+using athena_server.Services;
 using athena_server.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,8 +26,12 @@ namespace athena_server.Controllers
             }
 
             var createdWiki = await _wikiService.CreateWiki(createWikiDto);
+            if (createdWiki == null)
+            {
+                return BadRequest("Failed to create wiki. The user may not exist or input data is invalid.");
+            }
 
-            return CreatedAtAction(nameof(GetWikiBbyID), new { id = createdWiki.id }, createdWiki);
+            return CreatedAtAction(nameof(GetWikiBbyID), new { id = createdWiki.Id }, createdWiki);
         }
 
         [HttpGet("api/wikis")]

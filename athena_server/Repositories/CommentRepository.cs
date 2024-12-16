@@ -25,6 +25,11 @@ namespace athena_server.Repositories
             return _athenaDbContext.Comments.ToList();
         }
 
+        public List<Comment> GetCommentsByArticleId(int articleId)
+        {
+            return _athenaDbContext.Comments.Where(c => c.ArticleID == articleId).ToList();
+        }
+
         public Task<Comment> UpdateComment(Comment comment)
         {
             throw new NotImplementedException();

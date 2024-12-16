@@ -47,5 +47,18 @@ namespace athena_server.Controllers
             return CreatedAtAction(nameof(GetArticleByID), new { id = createdComment.ID }, createdComment);
         }
 
+        [HttpGet("article/{articleId}/comments")]
+        public IActionResult GetCommentsByArticleId(int articleId)
+        {
+            var comments = _commentService.GetCommentsByArticleId(articleId);
+
+            if (comments == null || !comments.Any())
+            {
+                return NotFound(new { Message = "No comments found for this article." });
+            }
+
+            return Ok(comments);
+        }
+
     }
 }

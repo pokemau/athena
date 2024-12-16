@@ -283,32 +283,32 @@ namespace athena_server.Migrations
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("creatorID")
+                    b.Property<string>("CreatorID")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("creatorName")
+                    b.Property<string>("CreatorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("wikiName")
+                    b.Property<string>("WikiName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -369,7 +369,7 @@ namespace athena_server.Migrations
             modelBuilder.Entity("athena_server.Models.Article", b =>
                 {
                     b.HasOne("athena_server.Models.Wiki", "Wiki")
-                        .WithMany("articles")
+                        .WithMany("Articles")
                         .HasForeignKey("WikiID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,7 +388,7 @@ namespace athena_server.Migrations
                     b.HasOne("athena_server.Models.ApplicationUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Article");
@@ -415,7 +415,7 @@ namespace athena_server.Migrations
 
             modelBuilder.Entity("athena_server.Models.Wiki", b =>
                 {
-                    b.Navigation("articles");
+                    b.Navigation("Articles");
                 });
 #pragma warning restore 612, 618
         }

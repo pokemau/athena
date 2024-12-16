@@ -1,5 +1,5 @@
 import { WIKI_API_URL, getWikiByID, editWiki, deleteWiki } from "./api/wiki_api";
-import { Wiki } from "./types";
+import { Article, Wiki } from "./types";
 
 (async function () {
 	let params = new URLSearchParams(document.location.search);
@@ -103,7 +103,7 @@ async function deleteWikiFinal(){
 	if (result){
 		wikiName.textContent = newWikiName.value;
 		wikiDescription.textContent = newDescription.value;
-		location.href = "http://localhost:5173";
+		location.href = "../";
 	}
 	else{
 		const messageBox = document.getElementById("message-box")!;
@@ -127,17 +127,28 @@ function populateUI(wikiData: Wiki) {
 	const articleList = document.querySelector(".article-list")!;
 	let articleListContent = "";
 
-	wikiData.articles?.forEach((article)=>{
+	wikiData.articles?.forEach((article: Article)=>{
+		let articleContentPreview = article.articleContent.substring(0, 400).trim();
+		if (article.articleContent.length > 100){
+			articleContentPreview += "...";
+		}
+
 		articleListContent += `<li class="article">
 			<h3>${article.articleTitle}</h3>
 			<div class="article-content">
-                <p>${article.articleContent.substring(0, 100)}</p>
-                <a href="#" class="read-more-article">Read more</a>
+                <p>${articleContentPreview}</p>
+                <a href="http://localhost:5173/article.html?id=${article.id}" class="read-more-article">Read more</a>
             </div>
 		</li>`;
 	})
 
 	articleList.innerHTML += articleListContent;
+
+	const userID = localStorage.getItem('userId');
+	if (wikiData.creatorID != userID){
+		const wikiButtonDiv = document.querySelector(".wiki-buttons") as HTMLElement;
+		wikiButtonDiv.style.display = "none";
+	}
 }
 
 function showNoResultsMessage() {
@@ -152,5 +163,6 @@ function showNoResultsMessage() {
 	messageBox.innerHTML = message;
 	setTimeout(function() {
 		messageBox.style.display = 'none';
-	}, 3000);  // Fully hidden after 3 seconds
+		location.href = "../";
+	}, 3000);  // Fully hidden and bring back to home after 3 seconds
 }

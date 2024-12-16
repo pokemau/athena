@@ -10,5 +10,6 @@ namespace athena_server.Services.Interfaces
         public WikiDTO.DisplayRequest? GetWikiById(int id);
         public Task<bool> UpdateWiki(int id, WikiDTO.UpdateDetailsRequest wikiDTO);
         public Task<bool> DeleteWikiAsync(int id);
+        public Task<ApplicationUserDTO?> GetUserByIdAsync(string userId);
     }
 }

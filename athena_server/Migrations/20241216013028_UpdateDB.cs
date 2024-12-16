@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace athena_server.Migrations
 {
     /// <inheritdoc />
-    public partial class Testing : Migration
+    public partial class UpdateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -160,17 +160,17 @@ namespace athena_server.Migrations
                 name: "Wikis",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    creatorID = table.Column<int>(type: "int", nullable: false),
-                    wikiName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    creatorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatorID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WikiName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wikis", x => x.id);
+                    table.PrimaryKey("PK_Wikis", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Wikis_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -196,7 +196,7 @@ namespace athena_server.Migrations
                         name: "FK_Articles_Wikis_WikiID",
                         column: x => x.WikiID,
                         principalTable: "Wikis",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -225,7 +225,7 @@ namespace athena_server.Migrations
                         column: x => x.SenderID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
