@@ -20,7 +20,7 @@ namespace athena_server.Controllers
                 return BadRequest("Article data is required.");
             }
             var createdArticle = await _articleService.CreateArticle(articleDTO);
-            return CreatedAtAction(nameof(GetArticleByID), new { id = createdArticle.id }, createdArticle);
+            return CreatedAtAction(nameof(GetArticleByID), new { id = createdArticle.Id }, createdArticle);
         }
 
         [HttpGet]
@@ -54,5 +54,17 @@ namespace athena_server.Controllers
             var result = _articleService.UpdateArticle(id, articleUpdate);
             return Ok(new { Message = "Update successful.", UpdatedArticle = result });
         }
+        
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteArticle([FromRoute] int id)
+        {
+            var success = await _articleService.DeleteArticle(id);
+
+            if (success)
+                return NoContent();
+            return NotFound($"Article {id} does not exist.");
+        }
+
     }
 }

@@ -9,5 +9,6 @@ namespace athena_server.Repositories.Interfaces
         public List<Article> GetArticles();
         public Article? GetArticleById(int id);
         public Task<Article> UpdateArticle(Article article);
+        public Task<bool> DeleteArticle(int id);
     }
 }

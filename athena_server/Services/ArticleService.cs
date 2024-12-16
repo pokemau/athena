@@ -15,24 +15,29 @@ namespace athena_server.Services
         {
             var newArticle = new Article()
             {
-                CreatorID = createArticleDTO.creatorID,
-                ArticleTitle = createArticleDTO.articleTitle,
-                ArticleContent = createArticleDTO.articleContent,
-                WikiID = createArticleDTO.wikiID
+                CreatorID = createArticleDTO.CreatorID,
+                ArticleTitle = createArticleDTO.ArticleTitle,
+                ArticleContent = createArticleDTO.ArticleContent,
+                WikiID = createArticleDTO.WikiID
             };
 
             var createdArticle = await _articleRepository.CreateArticle(newArticle);
 
-            var wiki = _wikiRepository.GetWikiById(createArticleDTO.wikiID);
+            var wiki = _wikiRepository.GetWikiById(createArticleDTO.WikiID);
 
             var articleDTO = new ArticleResponseDTO()
             {
-                articleTitle = createdArticle.ArticleTitle,
-                articleContent = createdArticle.ArticleContent,
-                wikiName = wiki?.wikiName ?? string.Empty
+                ArticleTitle = createdArticle.ArticleTitle,
+                ArticleContent = createdArticle.ArticleContent,
+                WikiName = wiki?.wikiName ?? string.Empty
             };
 
             return articleDTO;
+        }
+
+        public async Task<bool> DeleteArticle(int id)
+        {
+            return await _articleRepository.DeleteArticle(id);
         }
 
         public ArticleResponseDTO? GetArticleById(int id)
@@ -48,12 +53,12 @@ namespace athena_server.Services
 
             return new ArticleResponseDTO()
             {
-                id = article.Id,
-                wikiID = article.WikiID,
-                wikiName = wiki?.wikiName ?? string.Empty,
-                articleTitle = article.ArticleTitle,
-                creatorID = article.CreatorID,
-                articleContent = article.ArticleContent
+                Id = article.Id,
+                WikiID = article.WikiID,
+                WikiName = wiki?.wikiName ?? string.Empty,
+                ArticleTitle = article.ArticleTitle,
+                CreatorID = article.CreatorID,
+                ArticleContent = article.ArticleContent
             };
         }
 
@@ -68,12 +73,12 @@ namespace athena_server.Services
                 var wiki = _wikiRepository.GetWikiById(article.WikiID);
                 result.Add(new ArticleResponseDTO()
                 {
-                    id = article.Id,
-                    creatorID = article.CreatorID,
-                    wikiID = article.WikiID,
-                    wikiName = wiki?.wikiName ?? string.Empty,
-                    articleTitle = article.ArticleTitle,
-                    articleContent = article.ArticleContent
+                    Id = article.Id,
+                    CreatorID = article.CreatorID,
+                    WikiID = article.WikiID,
+                    WikiName = wiki?.wikiName ?? string.Empty,
+                    ArticleTitle = article.ArticleTitle,
+                    ArticleContent = article.ArticleContent
                 });
             }
             return result;
@@ -83,17 +88,17 @@ namespace athena_server.Services
         {
             var article = _articleRepository.GetArticleById(id);
 
-            article.ArticleTitle = articleUpdate.articleTitle;
-            article.ArticleContent = articleUpdate.articleContent;
+            article.ArticleTitle = articleUpdate.ArticleTitle;
+            article.ArticleContent = articleUpdate.ArticleContent;
 
             var wiki = _wikiRepository.GetWikiById(article.WikiID);
 
             await _articleRepository.UpdateArticle(article);
             return new ArticleResponseDTO()
             {
-                articleContent = article.ArticleContent,
-                wikiName = wiki?.wikiName ?? string.Empty,
-                articleTitle = article.ArticleContent,
+                ArticleContent = article.ArticleContent,
+                WikiName = wiki?.wikiName ?? string.Empty,
+                ArticleTitle = article.ArticleContent,
             };
         }
     }

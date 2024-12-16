@@ -8,5 +8,6 @@ namespace athena_server.Services.Interfaces
         public List<ArticleResponseDTO> GetArticles();
         public ArticleResponseDTO? GetArticleById(int id);
         public Task<ArticleResponseDTO> UpdateArticle(int id, ArticleRequestDTO.Update articleUpdate);
+        public Task<bool> DeleteArticle(int id);
     }
 }

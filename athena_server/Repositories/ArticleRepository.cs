@@ -30,5 +30,17 @@ namespace athena_server.Repositories
             await _athenaDbContext.SaveChangesAsync();
             return article;
         }
+
+        public async Task<bool> DeleteArticle(int id)
+        {
+            var article = _athenaDbContext.Articles.FirstOrDefault(w => w.Id == id);
+
+            if (article == null)
+                return false;
+
+            _athenaDbContext.Articles.Remove(article);
+            await _athenaDbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

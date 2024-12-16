@@ -4,24 +4,24 @@
     {
         public class Create
         {
-            public required int wikiID { get; set; }
-            public required string creatorID { get; set; }
-            public required string articleTitle { get; set; }
-            public required string articleContent { get; set; }
+            public required int WikiID { get; set; }
+            public required string CreatorID { get; set; }
+            public required string ArticleTitle { get; set; }
+            public required string ArticleContent { get; set; }
         }
         public class Update {
-            public required string articleTitle { get; set; }
-            public required string articleContent { get; set; }
+            public required string ArticleTitle { get; set; }
+            public required string ArticleContent { get; set; }
         }
     }
 
     public class ArticleResponseDTO
     {
-        public int id { get; set; }
-        public int wikiID { get; set; }
-        public required string? wikiName { get; set; }
-        public string creatorID { get; set; }
-        public required string? articleTitle { get; set; }
-        public required string? articleContent { get; set; }
+        public int Id { get; set; }
+        public int WikiID { get; set; }
+        public required string? WikiName { get; set; }
+        public string? CreatorID { get; set; }
+        public required string? ArticleTitle { get; set; }
+        public required string? ArticleContent { get; set; }
     }
 }
