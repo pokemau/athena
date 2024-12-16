@@ -42,9 +42,9 @@ namespace athena_server.Services
                 description = createdWiki.Description,
                 articles = createdWiki.Articles.Select(article => new ArticleRequestDTO.Display
                 {
-                    creatorID = article.CreatorID,
-                    articleTitle = article.ArticleTitle,
-                    articleContent = article.ArticleContent
+                    CreatorID = article.CreatorID,
+                    ArticleTitle = article.ArticleTitle,
+                    ArticleContent = article.ArticleContent
                 }).ToList()
             };
 
@@ -65,11 +65,11 @@ namespace athena_server.Services
                     wikiName = wiki.WikiName,
                     creatorName = wiki.CreatorName,
                     description = wiki.Description,
-                    articles = wiki.Articles.Select(article => new ArticleRequestDTO.Display
+                    articles = (wiki.Articles ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
                     {
-                        creatorID = article.CreatorID,
-                        articleTitle = article.ArticleTitle,
-                        articleContent = article.ArticleContent
+                        CreatorID = article.CreatorID,
+                        ArticleTitle = article.ArticleTitle,
+                        ArticleContent = article.ArticleContent
                     }).ToList()
                 });
             }
@@ -91,11 +91,11 @@ namespace athena_server.Services
                 wikiName = wiki.WikiName,
                 creatorName = wiki.CreatorName,
                 description = wiki.Description,
-                articles = wiki.Articles.Select(article => new ArticleRequestDTO.Display
+                articles = (wiki.Articles ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
                 {
-                    creatorID = article.CreatorID,
-                    articleTitle = article.ArticleTitle,
-                    articleContent = article.ArticleContent
+                    CreatorID = article.CreatorID,
+                    ArticleTitle = article.ArticleTitle,
+                    ArticleContent = article.ArticleContent
                 }).ToList()
             };
         }
