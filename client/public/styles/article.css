@@ -71,6 +71,12 @@
   margin-bottom: 10px;
 }
 
+.article-content{
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
 label {
   display: block;
   font-size: 14px;
@@ -104,4 +110,21 @@ textarea {
 
 .wiki-title:hover {
   color: rgb(21, 117, 243);
+}
+
+.comment {
+  margin-bottom: 1.5em;
+  padding: 1em;
+  background-color: #fafafa;
+  border-radius: 5px;
+}
+.comment .username {
+  font-weight: bold;
+}
+.comment .content {
+  margin: 0.5em 0;
+}
+.comment .date-time {
+  color: #888;
+  font-style: italic;
 }

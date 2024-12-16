@@ -28,7 +28,19 @@
       </div>
 
       <div class="article-content"></div>
-      </div>
+
+      <h1>Comments</h1>
+
+      <h2>Add a Comment</h2>
+      <form id="commentForm">
+        <textarea id="commentContent" placeholder="Your comment..." required></textarea>
+        <input type="hidden" id="articleID" value="1" /> 
+        <input type="hidden" id="senderID" /> 
+        <button type="submit">Post Comment</button>
+      </form>
+
+      <div id="commentsContainer"></div>
+    </div>
 
     <div id="myModal" class="modal">
       <div class="modal-content">
@@ -50,5 +62,79 @@
     </div>
 
     <script type="module" src="/src/article.ts"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        // Fetch article ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id');
+        
+        if (articleId) {
+          const response = await fetch(`https://localhost:7177/api/comments/article/${articleId}/comments`);
+          const comments = await response.json();
+
+          const commentsContainer = document.getElementById('commentsContainer');
+
+          if (comments && comments.length > 0) {
+            comments.forEach(comment => {
+              const commentDiv = document.createElement('div');
+              commentDiv.classList.add('comment');
+              
+              fetch(`https://localhost:7177/api/users/${comment.senderID}`)
+                .then(res => res.json())
+                .then(user => {
+                  console.log("User: ", user)
+                  const username = user.userName;
+
+                  commentDiv.innerHTML = `
+                    <div class="username">${username}</div>
+                    <div class="content">${comment.commentContent}</div>
+                    <div class="date-time">${new Date(comment.dateTimeSent).toLocaleString()}</div>
+                  `;
+
+                  commentsContainer.appendChild(commentDiv);
+                });
+            });
+          } else {
+            commentsContainer.innerHTML = 'No comments available for this article.';
+          }
+        }
+      });
+    
+      document.getElementById('commentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Get the comment content
+        const commentContent = document.getElementById('commentContent').value;
+        const articleID = new URLSearchParams(window.location.search).get('id');  // Assuming the URL is like /article.html?id=1
+        const senderID = localStorage.getItem('userId');  // Get the sender's ID from localStorage
+
+        if (!senderID) {
+          alert("You must be logged in to post a comment.");
+          return;
+        }
+
+        // Send the comment to the API
+        const response = await fetch('https://localhost:7177/api/comments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            commentContent,
+            articleID,
+            senderID,
+          }),
+        });
+
+        if (response.ok) {
+          alert('Comment posted successfully!');
+          location.reload();
+        } else {
+          const error = await response.json();
+          alert('Failed to post comment: ' + error.message);
+        }
+      });
+  
+    </script>
   </body>
 </html>
