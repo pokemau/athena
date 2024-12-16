@@ -292,8 +292,9 @@ namespace athena_server.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("creatorID")
-                        .HasColumnType("int");
+                    b.Property<string>("creatorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("creatorName")
                         .IsRequired()
