@@ -13,9 +13,10 @@
             public required string ArticleTitle { get; set; }
             public required string ArticleContent { get; set; }
         }
-        public class Display
+
+        public class WikiPreview
         {
-            public required string CreatorID { get; set; }
+            public required int Id { get; set; }
             public required string ArticleTitle { get; set; }
             public required string ArticleContent { get; set; }
         }

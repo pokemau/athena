@@ -31,7 +31,7 @@ namespace athena_server.Controllers
                 return BadRequest("Failed to create wiki. The user may not exist or input data is invalid.");
             }
 
-            return CreatedAtAction(nameof(GetWikiBbyID), new { id = createdWiki.id }, createdWiki);
+            return CreatedAtAction(nameof(GetWikiBbyID), new { id = createdWiki.Id }, createdWiki);
         }
 
         [HttpGet("api/wikis")]
