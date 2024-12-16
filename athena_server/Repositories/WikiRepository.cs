@@ -2,6 +2,7 @@
 using athena_server.Models.DTO;
 using athena_server.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace athena_server.Repositories
 {
@@ -22,11 +23,11 @@ namespace athena_server.Repositories
         }
         public List<Wiki> GetWikis()
         {
-            return _athenaDbContext.Wikis.ToList();
+            return _athenaDbContext.Wikis.Include(w => w.Articles).ToList();
         }
         public Wiki? GetWikiById(int id)
         {
-            return _athenaDbContext.Wikis.SingleOrDefault(x => x.Id == id);
+            return _athenaDbContext.Wikis.Include(w => w.Articles).SingleOrDefault(x => x.Id == id);
         }
         public List<Article> GetArticleByWikiID(int id)
         {

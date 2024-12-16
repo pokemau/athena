@@ -65,7 +65,7 @@ namespace athena_server.Services
                     wikiName = wiki.WikiName,
                     creatorName = wiki.CreatorName,
                     description = wiki.Description,
-                    articles = (wiki.Articles ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
+                    articles = (_wikiRepository.GetArticleByWikiID(wiki.Id) ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
                     {
                         CreatorID = article.CreatorID,
                         ArticleTitle = article.ArticleTitle,
@@ -91,7 +91,7 @@ namespace athena_server.Services
                 wikiName = wiki.WikiName,
                 creatorName = wiki.CreatorName,
                 description = wiki.Description,
-                articles = (wiki.Articles ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
+                articles = (_wikiRepository.GetArticleByWikiID(wiki.Id) ?? new List<Article>()).Select(article => new ArticleRequestDTO.Display
                 {
                     CreatorID = article.CreatorID,
                     ArticleTitle = article.ArticleTitle,
